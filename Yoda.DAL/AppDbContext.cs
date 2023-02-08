@@ -3,6 +3,9 @@ using Yoda.Domain.Model;
 
 namespace Yoda.DAL
 {
+	/// <summary>
+	/// Database context. 
+	/// </summary>
 	public class AppDbContext : DbContext
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> optionsBuilder) : base(optionsBuilder)

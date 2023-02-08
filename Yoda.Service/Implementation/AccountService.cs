@@ -21,7 +21,7 @@ namespace Yoda.Service.Implementation
 			userRepository = repository;
 			logger = _logger;
 		}
-		
+
 		public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model)
 		{
 			try
@@ -46,7 +46,11 @@ namespace Yoda.Service.Implementation
 					Age = (byte)AgeHelper.GetAge(model.BirdDate),
 				};
 				await userRepository.Create(user);
+				logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Register new user {user.Email}" +
+					$"\n-------------------------------------------------------------------------");
 				var result = Authenticate(user);
+				logger.LogInformation($"[AccountService.Register]: {DateTime.Now} User {user.Email} authenticate" +
+					$"\n----------------------------------------------------------------------------------------");
 				return new BaseResponse<ClaimsIdentity>()
 				{
 					Data = result,
@@ -56,8 +60,8 @@ namespace Yoda.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[Register]: {ex.Message}" +
-					$"-------------------------------------");
+				logger.LogError(ex, $"[AccountService.Register]: {DateTime.Now} error {ex.Message}" +
+					$"\n-----------------------------------------------------------");
 				return new BaseResponse<ClaimsIdentity>()
 				{
 					Description = ex.Message,
@@ -73,7 +77,6 @@ namespace Yoda.Service.Implementation
 				var user = await userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == model.Login);
 				if (user == null)
 				{
-
 					return new BaseResponse<ClaimsIdentity>()
 					{
 						Description = "User is not found."
@@ -87,6 +90,8 @@ namespace Yoda.Service.Implementation
 					};
 				}
 				var result = Authenticate(user);
+				logger.LogInformation($"[AccountService.Login]: {DateTime.Now} User {user.Email} authenticate" +
+					$"\n----------------------------------------------------------------------------------------");
 				return new BaseResponse<ClaimsIdentity>()
 				{
 					Data = result,
@@ -95,8 +100,8 @@ namespace Yoda.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[Login]: {ex.Message}" +
-					$"-----------------------------------");
+				logger.LogError(ex, $"[AccountService.Login]: {DateTime.Now} error {ex.Message}" +
+					$"\n----------------------------------------------------------");
 				return new BaseResponse<ClaimsIdentity>()
 				{
 					Description = ex.Message,
@@ -120,6 +125,8 @@ namespace Yoda.Service.Implementation
 				}
 				user.Password = HashPasswordHelper.HashPassowrd(model.NewPassword);
 				await userRepository.Update(user);
+				logger.LogInformation($"[AccountService.ChangePassword]: {DateTime.Now} User {user.Email} change password" +
+					$"\n-------------------------------------------------------------------------------------------------");
 				return new BaseResponse<bool>()
 				{
 					Data = true,
@@ -129,7 +136,8 @@ namespace Yoda.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[ChangePassword]: {ex.Message}");
+				logger.LogError(ex, $"[ChangePassword]: {DateTime.Now} error {ex.Message}" +
+					$"\n--------------------------------------------------");
 				return new BaseResponse<bool>()
 				{
 					Description = ex.Message,

@@ -18,7 +18,6 @@ namespace Yoda.DAL.Repository
 			db = dbContext;
 		}
 
-
 		/// <summary>
 		/// Get all users from database.
 		/// </summary>
@@ -26,7 +25,6 @@ namespace Yoda.DAL.Repository
 		{
 			return db.Users;
 		}
-
 
 		/// <summary>
 		/// Delete user from database.
@@ -38,7 +36,6 @@ namespace Yoda.DAL.Repository
 			await db.SaveChangesAsync();
 		}
 
-
 		/// <summary>
 		/// Adding user to database.
 		/// </summary>
@@ -48,7 +45,6 @@ namespace Yoda.DAL.Repository
 			await db.Users.AddAsync(entity);
 			await db.SaveChangesAsync();
 		}
-
 
 		/// <summary>
 		/// Updating user in database.

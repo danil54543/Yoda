@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yoda.Domain.Helper
+﻿namespace Yoda.Domain.Helper
 {
 	public static class AgeHelper
 	{
+		/// <summary>
+		/// Сalculating age from date.
+		/// </summary>
+		/// <param name="date">Bird date.</param>
+		/// <returns>User age(int).</returns>
 		public static int GetAge(DateTime date)
 		{
 			int age = DateTime.Now.Year - date.Year;

@@ -45,6 +45,8 @@ namespace Yoda.Service.Implementation
 					UserId = user.Id,
 				};
 				await todoRepository.Create(todo);
+				logger.LogInformation($"[TodoService.Create]: {DateTime.Now} {user.Email} created new todo {todo.Title}." +
+					$"\n------------------------------------------------------------------------------");
 				return new BaseResponse<Todo>()
 				{
 					Description = "Note created.",
@@ -53,8 +55,8 @@ namespace Yoda.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[CreateTodo]: {ex.Message}" +
-					$"-----------------------------------");
+				logger.LogError(ex, $"[TodoService.Create]: {DateTime.Now} error {ex.Message}." +
+					$"\n----------------------------------------------------------------------");
 				return new BaseResponse<Todo>()
 				{
 					Description = ex.Message,
@@ -77,6 +79,8 @@ namespace Yoda.Service.Implementation
 					};
 				}
 				await todoRepository.Delete(todo);
+				logger.LogInformation($"[TodoService.Delete]: {DateTime.Now} User {todo.User.Email} deleted todo {todo.Title}." +
+					$"\n---------------------------------------------------------------------------------------");
 				return new BaseResponse<bool>()
 				{
 					StatusCode = StatusCode.OK,
@@ -85,8 +89,8 @@ namespace Yoda.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[DeleteTodo]: {ex.Message}" +
-					$"-----------------------------------");
+				logger.LogError(ex, $"[TodoService.Delete]: {DateTime.Now} error {ex.Message}." +
+					$"\n-----------------------------------------");
 				return new BaseResponse<bool>()
 				{
 					Description = ex.Message,
@@ -113,16 +117,18 @@ namespace Yoda.Service.Implementation
 				todo.Marker = model.Marker;
 				todo.Item = model.Item;
 				await todoRepository.Update(todo);
+				logger.LogInformation($"[TodoService.Edit]: {DateTime.Now} User {todo.User.Email} edit todo {todo.Title}." +
+					$"\n----------------------------------------------------------------------------------");
 				return new BaseResponse<Todo>()
 				{
 					Data = todo,
-				    StatusCode = StatusCode.OK,
+					StatusCode = StatusCode.OK,
 				};
 			}
 			catch (Exception ex)
 			{
-				logger.LogError(ex, $"[EditTodo]: {ex.Message}" +
-					$"-----------------------------------");
+				logger.LogError(ex, $"[TodoService.Edit]: {DateTime.Now} error {ex.Message}" +
+					$"\n----------------------------------------------");
 				return new BaseResponse<Todo>()
 				{
 					Description = $"[EditTodo] : {ex.Message}",

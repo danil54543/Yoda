@@ -1,5 +1,8 @@
 ﻿namespace Yoda.Domain.Enum
 {
+	/// <summary>
+	/// Todo marker.
+	/// </summary>
 	public enum Marker
 	{
 		Red = 0, 

@@ -1,5 +1,8 @@
 ﻿namespace Yoda.Domain.Enum
 {
+	/// <summary>
+	/// Todo priority.
+	/// </summary>
 	public enum Priority
 	{
 		Low = 0,

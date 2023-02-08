@@ -12,9 +12,6 @@ namespace Yoda.DAL.Interface
 	/// </summary>
 	public interface ITodoRepository : IBaseRepository<Todo>
 	{
-		/// <summary>
-		/// Get all user todos from database.
-		/// </summary>
-		/// <param name="userId">User id.</param>
+		
 	}
 }
