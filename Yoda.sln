@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoda", "Yoda\Yoda.csproj", "{67256A54-582A-45EA-996B-77C58EBE688D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{A0F26455-946D-4BB1-86A0-F7B08E3A12BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{D9C63AFF-1B7D-4F5E-B1F5-3B096880E817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{445E4D9E-8863-4F6E-8D96-E425B8CD471F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoda.DAL", "Yoda.DAL\Yoda.DAL.csproj", "{0D45533F-243A-43EE-A165-B9F83A24A1DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoda.Domain", "Yoda.Domain\Yoda.Domain.csproj", "{9D1FEE59-AA10-4159-A1EB-319FE6479A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yoda.Service", "Yoda.Service\Yoda.Service.csproj", "{62A70105-5332-4240-BA0C-1DBB85B1605A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67256A54-582A-45EA-996B-77C58EBE688D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67256A54-582A-45EA-996B-77C58EBE688D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67256A54-582A-45EA-996B-77C58EBE688D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67256A54-582A-45EA-996B-77C58EBE688D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D45533F-243A-43EE-A165-B9F83A24A1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D45533F-243A-43EE-A165-B9F83A24A1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D45533F-243A-43EE-A165-B9F83A24A1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D45533F-243A-43EE-A165-B9F83A24A1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D1FEE59-AA10-4159-A1EB-319FE6479A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D1FEE59-AA10-4159-A1EB-319FE6479A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D1FEE59-AA10-4159-A1EB-319FE6479A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D1FEE59-AA10-4159-A1EB-319FE6479A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A70105-5332-4240-BA0C-1DBB85B1605A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A70105-5332-4240-BA0C-1DBB85B1605A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A70105-5332-4240-BA0C-1DBB85B1605A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A70105-5332-4240-BA0C-1DBB85B1605A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D45533F-243A-43EE-A165-B9F83A24A1DE} = {A0F26455-946D-4BB1-86A0-F7B08E3A12BF}
+		{9D1FEE59-AA10-4159-A1EB-319FE6479A84} = {445E4D9E-8863-4F6E-8D96-E425B8CD471F}
+		{62A70105-5332-4240-BA0C-1DBB85B1605A} = {D9C63AFF-1B7D-4F5E-B1F5-3B096880E817}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {764E17A7-12F3-4D7C-ABCE-34504B56F938}
+	EndGlobalSection
+EndGlobal
