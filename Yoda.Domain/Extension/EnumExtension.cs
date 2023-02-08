@@ -11,7 +11,7 @@ namespace Yoda.Domain.Extension
 				.GetMember(enumValue.ToString())
 				.First()
 				.GetCustomAttribute<DisplayAttribute>()
-				?.GetName() ?? "Неопределенный";
+				?.GetName() ?? "Uncertain";
 		}
 	}
 }

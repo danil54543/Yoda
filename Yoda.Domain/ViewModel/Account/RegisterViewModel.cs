@@ -1,41 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Yoda.Domain.ViewModel.Account
 {
 	public class RegisterViewModel
 	{
 
-		[Required(ErrorMessage = "Укажите Email")]
-		[MaxLength(50, ErrorMessage = "Email должен иметь длину меньше 50 символов")]
-		[MinLength(3, ErrorMessage = "Email должен иметь длину больше 3 символов")]
+		[Required(ErrorMessage = "Enter your email.")]
+		[MaxLength(50, ErrorMessage = "Email cannot contain more than 50 characters.")]
+		[MinLength(3, ErrorMessage = "Email must be longer than 3 characters.")]
 		public string Login { get; set; }
 
 		[DataType(DataType.Password)]
-		[Required(ErrorMessage = "Укажите пароль")]
-		[MinLength(6, ErrorMessage = "Пароль должен иметь длину больше 6 символов")]
+		[Required(ErrorMessage = "Enter a password.")]
+		[MinLength(6, ErrorMessage = "Password cannot be less than 6 characters.")]
 		public string Password { get; set; }
 
 		[DataType(DataType.Password)]
-		[Required(ErrorMessage = "Подтвердите пароль")]
-		[Compare("Password", ErrorMessage = "Пароли не совпадают")]
+		[Required(ErrorMessage = "Confirm the password.")]
+		[Compare("Password", ErrorMessage = "Password mismatch!")]
 		public string PasswordConfirm { get; set; }
 
-		[Required(ErrorMessage = "Введите дату рождения")]
+		[Required(ErrorMessage = "Enter date of birth.")]
 		public DateTime BirdDate { get; set; }
 
-		[Required(ErrorMessage = "Введиет имя")]
-		[MinLength(2)]
-		[MaxLength(50)]
+		[Required(ErrorMessage = "Enter your name.")]
+		[MinLength(2, ErrorMessage = "Name cannot be less than 2 characters.")]
+		[MaxLength(50, ErrorMessage = "Name cannot contain more than 50 characters.")]
 		public string FirstName { get; set; }
 
-		[Required(ErrorMessage = "Введиет фамилию")]
-		[MinLength(2)]
-		[MaxLength(50)]
+		[Required(ErrorMessage = "Enter your last name.")]
+		[MinLength(2, ErrorMessage = "Last name cannot be less than 2 characters.")]
+		[MaxLength(50, ErrorMessage = "Last name cannot contain more than 50 characters.")]
 		public string LastName { get; set; }
 	}
 }

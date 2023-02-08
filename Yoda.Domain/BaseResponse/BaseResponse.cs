@@ -8,7 +8,7 @@ namespace Yoda.Domain.BaseResponse
 
 		public StatusCode StatusCode { get; set; }
 
-		public T Data { get; set; }
+		public T Data { get; set; }	
 	}
 
 	public interface IBaseResponse<T>

@@ -10,7 +10,6 @@ namespace Yoda.DAL
 			Database.EnsureCreated();
 		}
 		public DbSet<User> Users { get; set; } = null!;
-		public DbSet<Profile> Profiles { get; set; } = null!;
-		public DbSet<TodoItem> TodoItems { get; set; } = null!;
+		public DbSet<Todo> Todos { get; set; } = null!;
 	}
 }

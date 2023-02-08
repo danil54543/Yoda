@@ -3,37 +3,61 @@ using Yoda.Domain.Model;
 
 namespace Yoda.DAL.Repository
 {
-	public class UserRepository : IBaseRepository<User>
+	/// <summary>
+	/// User repository.
+	/// </summary>
+	public class UserRepository : IUserRepository
 	{
-		private readonly AppDbContext _db;
+		/// <summary>
+		/// Database context instance.
+		/// </summary>
+		private readonly AppDbContext db;
 
-		public UserRepository(AppDbContext db)
+		public UserRepository(AppDbContext dbContext)
 		{
-			_db = db;
+			db = dbContext;
 		}
 
+
+		/// <summary>
+		/// Get all users from database.
+		/// </summary>
 		public IQueryable<User> GetAll()
 		{
-			return _db.Users;
+			return db.Users;
 		}
 
+
+		/// <summary>
+		/// Delete user from database.
+		/// </summary>
+		/// <param name="entity">User.</param>
 		public async Task Delete(User entity)
 		{
-			_db.Users.Remove(entity);
-			await _db.SaveChangesAsync();
+			db.Users.Remove(entity);
+			await db.SaveChangesAsync();
 		}
 
+
+		/// <summary>
+		/// Adding user to database.
+		/// </summary>
+		/// <param name="entity">User.</param>
 		public async Task Create(User entity)
 		{
-			await _db.Users.AddAsync(entity);
-			await _db.SaveChangesAsync();
+			await db.Users.AddAsync(entity);
+			await db.SaveChangesAsync();
 		}
 
+
+		/// <summary>
+		/// Updating user in database.
+		/// </summary>
+		/// <param name="entity">User.</param>
 		public async Task<User> Update(User entity)
 		{
-			_db.Users.Update(entity);
-			await _db.SaveChangesAsync();
-
+			db.Users.Update(entity);
+			await db.SaveChangesAsync();
 			return entity;
 		}
 	}
