@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\" />
+    <None Remove="Interface\IUserService.cs~RF1ffad51.TMP" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Yoda.DAL\Yoda.DAL.csproj" />
     <ProjectReference Include="..\Yoda.Domain\Yoda.Domain.csproj" />
   </ItemGroup>
 

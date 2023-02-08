@@ -4,7 +4,7 @@
 	{
 		UserNotFound = 0,
 		UserAlreadyExists = 1,
-
+		TodoNotFound = 10,
 		OK = 200,
 		InternalServerError = 500
 	}

@@ -16,6 +16,5 @@ namespace Yoda.DAL.Interface
 		/// Get all user todos from database.
 		/// </summary>
 		/// <param name="userId">User id.</param>
-		Task<IEnumerable<Todo>> GetAll(long userId);
 	}
 }

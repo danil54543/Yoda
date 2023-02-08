@@ -24,5 +24,6 @@
 		/// </summary>
 		/// <param name="entity">Updating entity.</param>
 		Task<T> Update(T entity);
+		IQueryable<T> GetAll();
 	}
 }

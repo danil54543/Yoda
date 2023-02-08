@@ -12,9 +12,6 @@ namespace Yoda.DAL.Interface
 	/// </summary>
 	public interface IUserRepository : IBaseRepository<User>
 	{
-		/// <summary>
-		/// Get all users from database.
-		/// </summary>
-		IQueryable<User> GetAll();
+		
 	}
 }
