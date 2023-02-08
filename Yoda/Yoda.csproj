@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yoda.Domain\Yoda.Domain.csproj" />
+    <ProjectReference Include="..\Yoda.Service\Yoda.Service.csproj" />
   </ItemGroup>
 
 </Project>
