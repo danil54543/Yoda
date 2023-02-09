@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yoda.DAL\Yoda.DAL.csproj" />
     <ProjectReference Include="..\Yoda.Domain\Yoda.Domain.csproj" />
   </ItemGroup>

@@ -43,10 +43,29 @@ namespace Yoda.Controllers
 			}
 			return View("Error", $"{response.Description}");
 		}
-		public IActionResult Edit(long id)
+
+		//[HttpGet]//TODO: Возможно неправильно.
+		//public async Task<IActionResult> Edit(long id)
+		//{
+		//	var response = await todoService.GetItem(id);
+		//	if (response.StatusCode != Domain.Enum.StatusCode.OK)
+		//	{
+		//		return View("Error", $"{response.Description}");
+		//	}
+		//	var model = new EditTodoViewModel()
+		//	{
+		//		Title = response.Data.Title,
+		//		Item = response.Data.Item,
+		//		Marker = response.Data.Marker,
+		//		Priority = response.Data.Priority,
+		//	};
+		//	return View(model);
+		//}
+		[HttpPost]
+		public async Task<IActionResult> Todos() 
 		{
-			//TODO: Редактирование заметки.
-			return View();
-		}
+            var response = await todoService.GetItems(User.Identity.Name);         
+            return View(response.Data.ToList());       
+        }
 	}
 }

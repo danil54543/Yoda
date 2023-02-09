@@ -26,5 +26,6 @@ namespace Yoda.Service.Interface
 		/// <param name="id">Todo id.</param>
 		/// <param name="model">Updating todo data.</param>
 		Task<IBaseResponse<Todo>> Edit(long id, EditTodoViewModel model);
-	}
+        Task<IBaseResponse<IEnumerable<TodoViewModel>>> GetItems(string login);
+    }
 }
