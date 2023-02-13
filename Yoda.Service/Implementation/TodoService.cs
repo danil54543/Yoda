@@ -22,7 +22,7 @@ namespace Yoda.Service.Implementation
             this.logger = logger;
         }
 
-        public async Task<IBaseResponse<Todo>> Create(CreateTodoViewModel model)
+        public async Task<IBaseResponse<Todo>> Create(TodoViewModel model)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Yoda.Service.Implementation
                     $"\n------------------------------------------------------------------------------");
                 return new BaseResponse<Todo>()
                 {
-                    Description = "Note created.",
+                    Description = "Todo created.",
                     StatusCode = StatusCode.OK
                 };
             }
@@ -75,7 +75,8 @@ namespace Yoda.Service.Implementation
                     return new BaseResponse<bool>()
                     {
                         StatusCode = StatusCode.TodoNotFound,
-                        Description = "Todo not found."
+                        Description = "Todo not found.",
+                        Data = false,
                     };
                 }
                 await todoRepository.Delete(todo);
@@ -84,7 +85,8 @@ namespace Yoda.Service.Implementation
                 return new BaseResponse<bool>()
                 {
                     StatusCode = StatusCode.OK,
-                    Description = "Todo deleted."
+                    Description = "Todo deleted.",
+                    Data = true,
                 };
             }
             catch (Exception ex)
@@ -94,16 +96,17 @@ namespace Yoda.Service.Implementation
                 return new BaseResponse<bool>()
                 {
                     Description = ex.Message,
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false,
                 };
             }
         }
-
-        public async Task<IBaseResponse<Todo>> Edit(long id, EditTodoViewModel model)
+        //TODO:
+        public async Task<IBaseResponse<Todo>> Update(TodoViewModel model)
         {
             try
             {
-                var todo = await todoRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                var todo = await todoRepository.GetAll().FirstOrDefaultAsync(x => x.Id == model.Id);
                 if (todo == null)
                 {
                     return new BaseResponse<Todo>()
@@ -138,13 +141,15 @@ namespace Yoda.Service.Implementation
         }
 
 
-        public async Task<IBaseResponse<IEnumerable<TodoViewModel>>> GetItems(string login)
+        public async Task<BaseResponse<IEnumerable<TodoViewModel>>> GetTodos(string login)
         {
             try
             {
                 var user = await userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == login);
                 if (user == null)
                 {
+                    logger.LogError($"[TodoService.GetTodos]: {DateTime.Now} error User not found." +
+                   $"\n----------------------------------------------");
                     return new BaseResponse<IEnumerable<TodoViewModel>>()
                     {
                         Description = "User not found.",
@@ -153,14 +158,16 @@ namespace Yoda.Service.Implementation
                 }
                 var todo = user.TodoItems;
                 var response = from t in todo
-                        select new TodoViewModel()
-                        {
-                            Id = t.Id,
-                            Title = t.Title,
-                            DateCreate = t.DateCreate,
-                            Priority = t.Priority,
-                            Marker = t.Marker,
-                        };
+                               select new TodoViewModel()
+                               {
+                                   Id = t.Id,
+                                   Title = t.Title,
+                                   DateCreate = t.DateCreate,
+                                   Priority = t.Priority,
+                                   Marker = t.Marker,
+                               };
+                logger.LogInformation($"[TodoService.GetTodos]: {DateTime.Now} User {login} getting todos." +
+                    $"\n----------------------------------------------");
                 return new BaseResponse<IEnumerable<TodoViewModel>>()
                 {
                     Data = response,
@@ -169,11 +176,54 @@ namespace Yoda.Service.Implementation
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"[TodoService.GetItems]: {DateTime.Now} error {ex.Message}" +
+                logger.LogError(ex, $"[TodoService.GetTodos]: {DateTime.Now} error {ex.Message}" +
                     $"\n----------------------------------------------");
                 return new BaseResponse<IEnumerable<TodoViewModel>>()
                 {
                     Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+        public async Task<IBaseResponse<TodoViewModel>> GetTodo(long id)
+        {
+            try
+            {
+                var todo = await todoRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (todo == null)
+                {
+                    logger.LogError($"[TodoService.GetTodo]: {DateTime.Now} error Todo not found." +
+                   $"\n----------------------------------------------");
+                    return new BaseResponse<TodoViewModel>()
+                    {
+                        Description = "Todo not found.",
+                        StatusCode = StatusCode.TodoNotFound
+                    };
+                }
+
+                var data = new TodoViewModel()
+                {
+                    Title = todo.Title,
+                    DateCreate = todo.DateCreate,
+                    Priority = todo.Priority,
+                    Marker = todo.Marker,
+                    Item = todo.Item,
+                };
+                logger.LogInformation($"[TodoService.GetTodo]: {DateTime.Now} User {todo.UserId} getting todo." +
+                    $"\n----------------------------------------------");
+                return new BaseResponse<TodoViewModel>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data,
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"[TodoService.GetTodo]: {DateTime.Now} error Todo internal server error." +
+                   $"\n----------------------------------------------");
+                return new BaseResponse<TodoViewModel>()
+                {
+                    Description = $"[GetTodo] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

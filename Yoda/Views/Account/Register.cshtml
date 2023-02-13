@@ -17,7 +17,7 @@
                             <form class="row justify-content-center" asp-controller="Account" asp-action="Register" class="needs-validation" novalidate="">
                                 <div asp-validation-summary="All" style="font-size:23px; font-family:Arial" class="text-danger text-center"></div>
                                 <div class="row g-3 col-lg-4 col-sm-8">
-                                    <h1 class="h3 mb-3 fw-normal">Registration</h1>
+                                    <h1 class="h2 mb-3 fw-normal text-center">Registration</h1>
                                     <hr class="my-4">
                                     <div class="col-sm-6">
                                         <label for="firstName" class="form-label">Name</label>
@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="email" class="form-label">Email<span class="text-warning">      (It will be your login)</span></label>
                                         <input asp-for="Login" type="email" class="form-control" id="email" placeholder="you@example.com">
                                         <div class="invalid-feedback">
                                             Required field.
@@ -60,8 +60,8 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="email" class="form-label">Подтвердите пароль</label>
-                                        <input autocomplete="new-password" asp-for="PasswordConfirm" type="password" class="form-control" id="email" placeholder="Подтвердите пароль" required="">
+                                        <label for="email" class="form-label">Confirm the password</label>
+                                        <input autocomplete="new-password" asp-for="PasswordConfirm" type="password" class="form-control" id="email" placeholder="Password" required="">
                                         <div class="invalid-feedback">
                                             Password mismatch.
                                         </div>
@@ -70,6 +70,8 @@
                                     <div class="d-grid gap-2 d-md-block float-right">
                                         <button class="btn btn-success">Continue</button>
                                     </div>
+                                    <div style="padding: 10px;"></div>
+
                                 </div>
                             </form>
                         </div>

@@ -6,20 +6,22 @@ using Yoda.Domain.Enum;
 using Yoda.Domain.Extension;
 using Yoda.Domain.Helper;
 using Yoda.Domain.Model;
-using Yoda.Domain.ViewModel.Profile;
+using Yoda.Domain.ViewModel.User;
 using Yoda.Service.Interface;
 
 namespace Yoda.Service.Implementation
 {
-	public class UserService : IUserService
+    public class UserService : IUserService
 	{
 		private readonly ILogger<UserService> logger;
 		private readonly IUserRepository userRepository;
+		private readonly IProfileRepository profileRepository;
 
-		public UserService(ILogger<UserService> logger, IUserRepository userRepository)
+		public UserService(ILogger<UserService> logger, IUserRepository userRepository, IProfileRepository profileRepository)
 		{
 			this.logger = logger;
 			this.userRepository = userRepository;
+			this.profileRepository = profileRepository;
 		}
 
 		public async Task<IBaseResponse<User>> Create(UserViewModel model)
@@ -39,18 +41,24 @@ namespace Yoda.Service.Implementation
 				{
 					Email = model.Login,
 					Role = Enum.Parse<Role>(model.Role),
-					Password = HashPasswordHelper.HashPassowrd(model.Password),
+					Password = HashPasswordHelper.HashPassowrd(model.Password),					
+					IsVerified = true,
+					TimeRegistration = DateTime.Now,
+				};
+				var profile = new Profile()
+				{
 					FirstName = "null",
 					LastName = "null",
 					BirdDate = DateTime.Now,
 					Age = (byte)AgeHelper.GetAge(DateTime.Now),
-					IsVerified = true,
-					TimeRegistration = DateTime.Now,
 				};
 				await userRepository.Create(user);
 				logger.LogInformation($"[UserService.Create]: {DateTime.Now} New account {user.Email} created." +
 					$"\n-------------------------------------------------------------------------");
-				return new BaseResponse<User>()
+				await profileRepository.Create(profile);
+                logger.LogInformation($"[UserService.Create]: {DateTime.Now} Create profile {user.Email}." +
+                    $"\n-------------------------------------------------------------------------");
+                return new BaseResponse<User>()
 				{
 					Data = user,
 					Description = "User added.",
@@ -80,6 +88,7 @@ namespace Yoda.Service.Implementation
 					{
 						Description = "User not found.",
 						StatusCode = StatusCode.UserNotFound,
+						Data = false,
 					};
 				}
 				await userRepository.Delete(user);
@@ -98,7 +107,8 @@ namespace Yoda.Service.Implementation
 				return new BaseResponse<bool>()
 				{
 					StatusCode = StatusCode.InternalServerError,
-					Description = $"Internal error: {ex.Message}."
+					Description = $"Internal error: {ex.Message}.",
+					Data = false,
 				};
 			}
 		}

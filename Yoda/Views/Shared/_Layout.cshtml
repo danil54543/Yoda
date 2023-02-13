@@ -5,50 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Yoda</title>
     <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/backImage.css" />
+
 
 
 </head>
 
 <body class="backgroundImage">
+    <div class="text-bg-dark ">
+        <div class="container">
 
-    <header class="p-3 mb-3 border-bottom text-bg-dark">
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 text-bg-dark asp-controller="Home" asp-action="Index">
+
+
+                @if (!User.Identity.IsAuthenticated)
+                {
                     <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:white; font-family:Impact; font-size:30px;">Yoda</span></a>
-                    <div class="text-end">
+
+                    <div class="col-md-3 text-end">
                         <a class="btn btn-primary active text-white" asp-controller="Account" asp-action="Register">Registration</a>
                         <a class="btn btn-outline-success active text-white" asp-controller="Account" asp-action="Login">Log In</a>
                     </div>
-                </div>
-            </div>
-        }
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none" asp-controller="Home" asp-action="Index"><span style="color:white; font-family:Arial; font-size:30px;">Notefy</span></a>
-                    <div class="text-end">
-                        <button class="btn btn-close" asp-controller="Todo" asp-action="Create">Add todo</button>
-                      <button class="btn btn-close"asp-controller="Account" asp-action="Logout">Log Out</button>
-                    </div>
-                </div>
-            </div>
-        }
-    </header>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" asp-controller="Todos" asp-action="Todo"><span style="color:white; font-family:Impact; font-size:30px;">Yoda</span></a>
+                    <div class="col-md-3 text-end">
+                        <a class="btn btn-primary active text-white" asp-controller="Todo" asp-action="Create">Add todo</a>
+                    <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Log Out</a>
+                </div>         
+                }
+            </header>
+        </div>
+    </div>
 
     <div class="container-fluid col-xl-12">
         <main role="main">
             @RenderBody()
         </main>
-        <hr class="my-4">
 
-        <div style="padding: 10px;"></div>
+        <div style="padding: 30px;"></div>
 
     </div>
 
     <footer class="container">
+        <hr class="my-4">
         <p>© 2023 Created 2die4 · <a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </footer>
 

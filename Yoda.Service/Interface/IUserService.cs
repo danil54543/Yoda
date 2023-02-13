@@ -1,14 +1,14 @@
 ﻿using Yoda.Domain.BaseResponse;
 using Yoda.Domain.Model;
 using Yoda.Domain.ViewModel.Account;
-using Yoda.Domain.ViewModel.Profile;
+using Yoda.Domain.ViewModel.User;
 
 namespace Yoda.Service.Interface
 {
-	/// <summary>
-	/// Admin panel interface.
-	/// </summary>
-	public interface IUserService
+    /// <summary>
+    /// Admin panel interface.
+    /// </summary>
+    public interface IUserService
 	{
 		/// <summary>
 		/// Creating new user.

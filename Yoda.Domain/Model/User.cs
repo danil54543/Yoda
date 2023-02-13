@@ -16,25 +16,13 @@ namespace Yoda.Domain.Model
 
 
 		public Role Role { get; set; }
-		[Required, MinLength(2), MaxLength(50), DataType(DataType.Text)]
-		public string FirstName { get; set; }
-
-		[Required, MinLength(2), MaxLength(50),DataType(DataType.Text)]
-		public string LastName { get; set; }
-
-
-		public byte Age { get; set; }
-		[DataType(DataType.Date)]
-		public DateTime BirdDate { get; set; }
-
-		//TODO: Хранение изображения
-		public byte[]? Image { get; set; }
+		
 		public bool IsVerified { get; set; }
 
 
 		[DataType(DataType.DateTime)]
 		public DateTime TimeRegistration { get; set; }
+        public IEnumerable<Todo>? TodoItems { get; set; }
 
-		public IEnumerable<Todo>? TodoItems { get; set; }
-	}
+    }
 }

@@ -18,11 +18,13 @@ namespace Yoda.Service.Implementation
     {
         private readonly IUserRepository userRepository;
         private readonly ILogger<AccountService> logger;
+        private readonly IProfileRepository profileRepository;
 
-        public AccountService(IUserRepository repository, ILogger<AccountService> _logger)
+        public AccountService(IUserRepository userRepository, ILogger<AccountService> logger, IProfileRepository profileRepository)
         {
-            userRepository = repository;
-            logger = _logger;
+            this.userRepository = userRepository;
+            this.logger = logger;
+            this.profileRepository= profileRepository;
         }
        
 
@@ -42,16 +44,23 @@ namespace Yoda.Service.Implementation
                 {
                     Email = model.Login,
                     Role = Role.User,
-                    Password = HashPasswordHelper.HashPassowrd(model.Password),
+                    Password = HashPasswordHelper.HashPassowrd(model.Password),                    
+                    TimeRegistration = DateTime.Now,
+                };
+                var profile = new Profile()
+                {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     BirdDate = model.BirdDate,
-                    TimeRegistration = DateTime.Now,
-                    Age = (byte)AgeHelper.GetAge(model.BirdDate),
+                    //Age = (byte)AgeHelper.GetAge(model.BirdDate),
+                    UserId = user.Id,
                 };
                 await userRepository.Create(user);
                 logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Register new user {user.Email}" +
                     $"\n-------------------------------------------------------------------------");
+                await profileRepository.Create(profile);
+                logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Created new profile. {user.Email}" +
+                   $"\n-------------------------------------------------------------------------");
                 var result = Authenticate(user);
                 logger.LogInformation($"[AccountService.Register]: {DateTime.Now} User {user.Email} authenticate" +
                     $"\n----------------------------------------------------------------------------------------");

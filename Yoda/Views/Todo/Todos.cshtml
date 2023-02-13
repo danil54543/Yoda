@@ -2,52 +2,54 @@
 @{
     ViewBag.Title = "Your todo";
     Layout = "_Layout";
+    
 }
-@{
-    int iterator = Model.Count() + 1;
+@{int iterator = Model.Count() + 1;}
 
-}
-@if (Model == null || Model.Count == 0)
-{
-    <div style="padding:40px;"></div>
-    <div class="card col-md-12">
-        <div class="row g-0">
-            <div class="col-md-12">
-                <div class="card-body">
-                    <h5 class="card-title text-center">No TODO yet :(</h5>
+<div class="container py-5">
+    @if (Model == null || Model.Count == 0)
+    {
+        <div style="padding:40px;"></div>
+        <div class="card col-md-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">No TODO yet :(</h5>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col"> </th>
-                    <th scope="col">Marker</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Created</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    }
+    else
+    {
+        <div class="row">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th scope="row">@iterator--</th>
-                        <td>@item.Marker</td>
-                        <td>@item.Title</td>
-                        <td>@item.DateCreate</td>
-                        <div class="text-end">
-                            <button class="btn btn-primary">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </div>
-
+                        <th scope="col"> </th>
+                        <th scope="col">Marker</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Created</th>
                     </tr>
-                }
-            </tbody>
-        </table>      
-    </div>
-}
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@iterator--</th>
+                            <td>@item.Marker</td>
+                            <td>@item.Title</td>
+                            <td>@item.DateCreate</td>
+                            <div class="text-end">
+                                <button class="btn btn-primary">Edit</button>
+                                <button class="btn btn-danger">Delete</button>
+                            </div>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

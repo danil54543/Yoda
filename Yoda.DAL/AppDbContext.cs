@@ -14,5 +14,6 @@ namespace Yoda.DAL
 		}
 		public DbSet<User> Users { get; set; } = null!;
 		public DbSet<Todo> Todos { get; set; } = null!;
+		public DbSet<Profile> Profiles { get; set; } = null!;
 	}
 }

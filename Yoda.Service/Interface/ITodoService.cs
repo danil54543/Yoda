@@ -14,7 +14,7 @@ namespace Yoda.Service.Interface
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns>Todo data.</returns>
-		Task<IBaseResponse<Todo>> Create(CreateTodoViewModel model);
+		Task<IBaseResponse<Todo>> Create(TodoViewModel model);
 		/// <summary>
 		/// Delete todo.
 		/// </summary>
@@ -25,7 +25,9 @@ namespace Yoda.Service.Interface
 		/// </summary>
 		/// <param name="id">Todo id.</param>
 		/// <param name="model">Updating todo data.</param>
-		Task<IBaseResponse<Todo>> Edit(long id, EditTodoViewModel model);
-        Task<IBaseResponse<IEnumerable<TodoViewModel>>> GetItems(string login);
+		Task<IBaseResponse<Todo>> Update(TodoViewModel model);
+		Task<BaseResponse<IEnumerable<TodoViewModel>>> GetTodos(string login);
+
+        Task<IBaseResponse<TodoViewModel>> GetTodo(long id);
     }
 }
