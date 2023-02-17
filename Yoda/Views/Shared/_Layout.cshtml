@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Yoda</title>
     <link rel="stylesheet" href="~/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/backImage.css" />
 
-
+    <style>
+        body {
+            background-image: url('../image/bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
 
 </head>
 
 <body class="backgroundImage">
     <div class="text-bg-dark ">
-        <div class="container">     
+        <div class="container">
+           
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 " asp-controller="Home" asp-action="Index">
 
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:white; font-family:Impact; font-size:30px;">Yoda</span></a>
