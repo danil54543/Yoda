@@ -1,5 +1,5 @@
 ﻿.backgroundImage {
-    background-image: url("https://img.freepik.com/free-vector/gradient-grainy-gradient-background_23-2149922772.jpg?w=1060&t=st=1676282737~exp=1676283337~hmac=32c8e5a74fc450c46f8a12c8d8755f8287a5579567a7fe578a7c4179deedb932");
+    background-image: url('../image/bg.jpg');
     background-size: cover;
     background-attachment: fixed;
 }

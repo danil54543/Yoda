@@ -16,7 +16,7 @@ namespace Yoda.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProfileViewModel model)
         {
-            ModelState.Remove("Id");
+
             if (ModelState.IsValid)
             {
                 var response = await profileService.Update(model);
@@ -28,7 +28,7 @@ namespace Yoda.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        public async Task<IActionResult> Detail()
+        public async Task<IActionResult> GetProfile()
         {
             var login = User.Identity.Name;
             if (login == null)

@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yoda.DAL.Interface;
+using Yoda.DAL.Repository;
 using Yoda.Domain.BaseResponse;
 using Yoda.Domain.Enum;
+using Yoda.Domain.Helper;
 using Yoda.Domain.Model;
 using Yoda.Domain.ViewModel.Profile;
 using Yoda.Service.Interface;
@@ -18,11 +20,13 @@ namespace Yoda.Service.Implementation
     {
         private readonly ILogger<ProfileService> logger;
         private readonly IProfileRepository profileRepository;
+        private readonly IUserRepository userRepository;
 
-        public ProfileService(IProfileRepository profileRepository,ILogger<ProfileService> logger)
+        public ProfileService(IProfileRepository profileRepository,ILogger<ProfileService> logger, IUserRepository userRepository)
         {
             this.profileRepository = profileRepository;
             this.logger = logger;
+            this.userRepository = userRepository;
         }
 
         public async Task<BaseResponse<ProfileViewModel>> GetProfile(string login)
@@ -36,12 +40,20 @@ namespace Yoda.Service.Implementation
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         BirdDate = x.BirdDate,
-                        Age = x.Age,
-                        Login = x.User.Email,
-                        
+                        Age = (byte)AgeHelper.GetAge(x.BirdDate),
+                        Login = x.User.Email
                     })
                     .FirstOrDefaultAsync(x => x.Login == login);
-
+                if (profile == null)
+                {
+                    logger.LogError($"[ProfileService.GetProfile] error: Profile not found.");
+                    return new BaseResponse<ProfileViewModel>()
+                    {
+                        StatusCode = StatusCode.ProfileNotFound,
+                        Description = $"Internal error: Profile not found."
+                    };
+                }
+               
                 logger.LogInformation($"[ProfileService.GetProfile] Getting profile.");
 
                 return new BaseResponse<ProfileViewModel>()

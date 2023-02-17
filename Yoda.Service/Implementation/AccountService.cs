@@ -57,6 +57,7 @@ namespace Yoda.Service.Implementation
                     LastName = model.LastName,
                     BirdDate = model.BirdDate,
                     Age = (byte)AgeHelper.GetAge(model.BirdDate),
+                    User = user,
                     UserId = user.Id,
                 };
                 await profileRepository.Create(profile);

@@ -5,6 +5,7 @@
 		UserNotFound = 0,
 		UserAlreadyExists = 1,
 		TodoNotFound = 10,
+		ProfileNotFound =20,
 		OK = 200,
 		InternalServerError = 500
 	}
