@@ -30,7 +30,7 @@ namespace Yoda.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-                    return RedirectToAction("Todos", "Todo");
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", response.Description);
             }

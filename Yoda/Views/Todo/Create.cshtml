@@ -3,6 +3,58 @@
     ViewBag.Title = "Create";
     Layout = "_Layout";
 }
-<div class="container py-5">
+<form>
+   
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Title" class="col-form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Title">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Item" class="col-form-label"></label>
+            <input class="form-control" asp-for="@Model.Item" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.Marker" class="col-form-label"></label>
+            <select class="form-control" id="carTypeId2">
+                <option value="@Model.Marker">@Model.Marker</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.DateCreate" class="col-form-label"></label>
+            <input class="form-control" asp-for="@Model.DateCreate"/>
+        </div>
+    </div>
+</form>
 
-</div>
+<style>
+    label {
+        color: black;
+    }
+</style>
+
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+$('#carTypeId2').select2({
+   placeholder: "Select marker",
+   minimumInputLength: 0,
+   allowClear: true,
+   ajax: {
+        type: "POST",
+        url: "@Url.Action("GetTypes", "Car")",
+        dataType: "json",
+        processResults: function (result) {
+            return {
+                results: $.map(result, function (val, index) {
+                    return {
+                        id: index, 
+                        text: val
+                    };
+                }),
+            };
+        }
+    }
+});
+</script>

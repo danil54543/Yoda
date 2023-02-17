@@ -90,5 +90,11 @@ namespace Yoda.Controllers
             return RedirectToAction("Todos", "Todo");
         }
         //TODO: Make method "GetTodo".
+        [HttpPost]
+        public JsonResult GetTypes()
+        {
+            var types = todoService.GetTypes();
+            return Json(types.Data);
+        }
     }
 }

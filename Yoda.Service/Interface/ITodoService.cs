@@ -29,5 +29,6 @@ namespace Yoda.Service.Interface
 		Task<BaseResponse<IEnumerable<TodoViewModel>>> GetTodos(string login);
 
         Task<IBaseResponse<TodoViewModel>> GetTodo(long id);
+		BaseResponse<Dictionary<int, string>> GetTypes();
     }
 }

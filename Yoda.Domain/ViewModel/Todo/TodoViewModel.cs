@@ -16,7 +16,6 @@ namespace Yoda.Domain.ViewModel.Todo
         [Required, DataType(DataType.DateTime)]
         public DateTime DateCreate { get; set; }
 
-        public Priority? Priority { get; set; }
         public Marker? Marker { get; set; }
         public string Login { get; set; }
 

@@ -7,6 +7,13 @@
 @{int iterator = Model.Count() + 1;}
 
 <div class="container py-5">
+
+    <div class="card col-md-12" style="margin: 10px;">
+         <div class="card-buttons-group">              
+                <button class='btn btn-success' id='addUserId'>New todo</button>     
+         </div>
+    </div>=
+
     @if (Model == null || Model.Count == 0)
     {
         <div style="padding:40px;"></div>
@@ -33,17 +40,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var todo in Model)
                     {
                         <tr>
                             <th scope="row">@iterator--</th>
-                            <td>@item.Marker</td>
-                            <td>@item.Title</td>
-                            <td>@item.DateCreate</td>
-                            <div class="text-end">
-                                <button class="btn btn-primary">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </div>
+                            <td>@todo.Marker</td>
+                            <td>@todo.Title</td>
+                            <td>@todo.DateCreate</td>
+                             <td>
+                                <form asp-controller="Todo" asp-action="Delete" asp-route-id="@todo.Id" method="post">
+                                     <button type="submit" class="btn btn-sm btn-close">
+                                        Delete
+                                     </button>
+                                </form>
+                             </td>
+                             <td>
+                                 <button type="submit" class="btn btn-sm btn-primary" onclick="openModal({ url: '@Url.Action("", "Todo")', data: @todo.Id })">
+                                    Look
+                                 </button>
+                             </td>
 
                         </tr>
                     }
@@ -51,5 +66,52 @@
             </table>
         </div>
     }
-</div>
+</div
+
+@section pageScripts
+    {
+    <script src="~/js/modal.js"></script>
+    <script>
+        let modal = $('#modal');
+
+        $('#addUserId').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Save")',
+                success: function (response) {
+                    modal.find(".modal-body").html(response);
+                    modal.modal('show')
+                },
+                failure: function () {
+                    modal.modal('hide')
+                }
+            });
+        });
+
+        $('#saveBtn').on('click', function () {
+            const data = $('#formSaveUser').serialize()
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Save")',
+                data: data,
+                success: function (data) {
+                    Swal.fire({
+                        title: 'Info',
+                        text: data.description,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                },
+                error: function (response) {
+                    Swal.fire({
+                        title: 'Info',
+                        text: response.responseJSON.errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            })
+        });
+    </script>
+}
 

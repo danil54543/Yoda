@@ -20,7 +20,6 @@ namespace Yoda.Domain.Model
 		public DateTime DateCreate { get; set; }
 
 
-		public Priority? Priority { get; set; }
 		public Marker? Marker { get; set; }
 		public long UserId { get; set; }
 		public User User { get; set; }

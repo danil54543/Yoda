@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Yoda.DAL.Interface;
 using Yoda.Domain.BaseResponse;
 using Yoda.Domain.Enum;
+using Yoda.Domain.Extension;
 using Yoda.Domain.Model;
 using Yoda.Domain.ViewModel.Todo;
 using Yoda.Service.Interface;
@@ -40,7 +41,6 @@ namespace Yoda.Service.Implementation
                     Title = model.Title,
                     Item = model.Item,
                     DateCreate = DateTime.Now,
-                    Priority = model.Priority,
                     Marker = model.Marker,
                     UserId = user.Id,
                 };
@@ -116,7 +116,6 @@ namespace Yoda.Service.Implementation
                     };
                 }
                 todo.Title = model.Title;
-                todo.Priority = model.Priority;
                 todo.Marker = model.Marker;
                 todo.Item = model.Item;
                 await todoRepository.Update(todo);
@@ -163,7 +162,6 @@ namespace Yoda.Service.Implementation
                                    Id = t.Id,
                                    Title = t.Title,
                                    DateCreate = t.DateCreate,
-                                   Priority = t.Priority,
                                    Marker = t.Marker,
                                };
                 logger.LogInformation($"[TodoService.GetTodos]: {DateTime.Now} User {login} getting todos." +
@@ -205,7 +203,6 @@ namespace Yoda.Service.Implementation
                 {
                     Title = todo.Title,
                     DateCreate = todo.DateCreate,
-                    Priority = todo.Priority,
                     Marker = todo.Marker,
                     Item = todo.Item,
                 };
@@ -224,6 +221,28 @@ namespace Yoda.Service.Implementation
                 return new BaseResponse<TodoViewModel>()
                 {
                     Description = $"[GetTodo] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+        public BaseResponse<Dictionary<int, string>> GetTypes()
+        {
+            try
+            {
+                var types = ((Marker[])Enum.GetValues(typeof(Marker)))
+                    .ToDictionary(k => (int)k, t => t.GetDisplayName());
+
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Data = types,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
