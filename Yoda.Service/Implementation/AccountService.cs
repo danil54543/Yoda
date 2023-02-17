@@ -47,17 +47,18 @@ namespace Yoda.Service.Implementation
                     Password = HashPasswordHelper.HashPassowrd(model.Password),                    
                     TimeRegistration = DateTime.Now,
                 };
+                
+                await userRepository.Create(user);
+                logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Register new user {user.Email}" +
+                    $"\n-------------------------------------------------------------------------");
                 var profile = new Profile()
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     BirdDate = model.BirdDate,
-                    //Age = (byte)AgeHelper.GetAge(model.BirdDate),
+                    Age = (byte)AgeHelper.GetAge(model.BirdDate),
                     UserId = user.Id,
                 };
-                await userRepository.Create(user);
-                logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Register new user {user.Email}" +
-                    $"\n-------------------------------------------------------------------------");
                 await profileRepository.Create(profile);
                 logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Created new profile. {user.Email}" +
                    $"\n-------------------------------------------------------------------------");

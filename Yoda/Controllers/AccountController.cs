@@ -7,8 +7,8 @@ using Yoda.Service.Interface;
 
 namespace Yoda.Controllers
 {
-	public class AccountController : Controller
-	{
+    public class AccountController : Controller
+    {
         private readonly IAccountService accountService;
 
         public AccountController(IAccountService accountService)
@@ -51,14 +51,14 @@ namespace Yoda.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-                    return RedirectToAction("Todos", "Todo");
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", response.Description);
             }
             return View(model);
         }
 
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

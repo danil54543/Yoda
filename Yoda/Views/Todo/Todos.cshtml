@@ -1,10 +1,9 @@
 ﻿@model List<TodoViewModel>
 @{
-    ViewBag.Title = "Your todo";
+    ViewBag.Title = "Todo";
     Layout = "_Layout";
     
 }
-@{int iterator = Model.Count() + 1;}
 
 <div class="container py-5">
 
@@ -12,7 +11,7 @@
          <div class="card-buttons-group">              
                 <button class='btn btn-success' id='addUserId'>New todo</button>     
          </div>
-    </div>=
+    </div>
 
     @if (Model == null || Model.Count == 0)
     {
@@ -29,42 +28,26 @@
     }
     else
     {
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col"> </th>
-                        <th scope="col">Marker</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Created</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var todo in Model)
-                    {
-                        <tr>
-                            <th scope="row">@iterator--</th>
-                            <td>@todo.Marker</td>
-                            <td>@todo.Title</td>
-                            <td>@todo.DateCreate</td>
-                             <td>
-                                <form asp-controller="Todo" asp-action="Delete" asp-route-id="@todo.Id" method="post">
-                                     <button type="submit" class="btn btn-sm btn-close">
-                                        Delete
-                                     </button>
-                                </form>
-                             </td>
-                             <td>
-                                 <button type="submit" class="btn btn-sm btn-primary" onclick="openModal({ url: '@Url.Action("", "Todo")', data: @todo.Id })">
-                                    Look
-                                 </button>
-                             </td>
 
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                @foreach(var todo in Model)
+                {
+                   <div class="card-body">
+                         <h5 class="card-title">@todo.Title</h5>
+                         <p class="card-text">@todo.Item</p>
+                         <div class="d-flex justify-content-between align-items-center">
+                             <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                             </div>
+                             <small class="text-muted">@todo.DateCreate</small>
+                         </div>
+                   </div>        
+                } 
+            </div>
+      </div>
     }
 </div
 

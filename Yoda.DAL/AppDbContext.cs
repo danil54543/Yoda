@@ -28,14 +28,14 @@ namespace Yoda.DAL
                     new User()
                     {
                         Id = 1,
-                        Email = "Admin@gg.c",
+                        Email = "Admin@test.com",
                         Password = HashPasswordHelper.HashPassowrd("123456"),
                         Role = Role.Admin
                     },
                     new User()
                     {
                         Id = 2,
-                        Email = "Moderator",
+                        Email = "Moderator@test.com",
                         Password = HashPasswordHelper.HashPassowrd("654321"),
                         Role = Role.Moderator
                     }
@@ -49,16 +49,14 @@ namespace Yoda.DAL
                     .WithOne(x => x.User)
                     .HasPrincipalKey<User>(x => x.Id)
                     .OnDelete(DeleteBehavior.Cascade);
-                
-            });
-            modelBuilder.Entity<Todo>(builder =>
-            {
-                builder.ToTable("Todos").HasKey(x => x.Id);
 
-                builder.HasOne(r => r.User).WithMany(t => t.TodoItems)
-                    .HasForeignKey(r => r.UserId);
-            });
+                builder.HasMany(x => x.TodoItems)
+                    .WithOne(x => x.User)
+                    .HasPrincipalKey(x => x.Id)
+                    .OnDelete(DeleteBehavior.Cascade);
 
+
+            });          
         }
     }
 }
