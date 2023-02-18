@@ -5,18 +5,18 @@ using Yoda.Domain.Model;
 
 namespace Yoda.DAL
 {
-	/// <summary>
-	/// Database context. 
-	/// </summary>
-	public class AppDbContext : DbContext
-	{
-		public AppDbContext(DbContextOptions<AppDbContext> optionsBuilder) : base(optionsBuilder)
-		{
-			Database.EnsureCreated();
-		}
-		public DbSet<User> Users { get; set; } = null!;
-		public DbSet<Todo> Todos { get; set; } = null!;
-		public DbSet<Profile> Profiles { get; set; } = null!;
+    /// <summary>
+    /// Database context. 
+    /// </summary>
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> optionsBuilder) : base(optionsBuilder)
+        {
+            Database.EnsureCreated();
+        }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Todo> Todos { get; set; } = null!;
+        public DbSet<Profile> Profiles { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(builder =>
@@ -30,14 +30,16 @@ namespace Yoda.DAL
                         Id = 1,
                         Email = "Admin@test.com",
                         Password = HashPasswordHelper.HashPassowrd("123456"),
-                        Role = Role.Admin
+                        Role = Role.Admin,
+                        IsVerified = true,
                     },
                     new User()
                     {
                         Id = 2,
                         Email = "Moderator@test.com",
                         Password = HashPasswordHelper.HashPassowrd("654321"),
-                        Role = Role.Moderator
+                        Role = Role.Moderator,
+                        IsVerified = true,
                     }
                 });
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -56,7 +58,33 @@ namespace Yoda.DAL
                     .OnDelete(DeleteBehavior.Cascade);
 
 
-            });          
+            });
+            modelBuilder.Entity<Profile>(builder =>
+            {
+                builder.ToTable("UserProfiles").HasKey(x => x.Id);
+
+                builder.HasData(new Profile[]
+                {
+                    new Profile()
+                    {
+                        Id = 1,
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        BirdDate = DateTime.Today,
+                        Age = 30,
+                        UserId= 1,
+                    },
+                    new Profile()
+                    {
+                        Id = 2,
+                        FirstName = "Moderator",
+                        LastName = "Moderator",
+                        BirdDate = DateTime.Today,
+                        Age = 30,
+                        UserId= 2,
+                    }
+                });
+            });
         }
     }
 }

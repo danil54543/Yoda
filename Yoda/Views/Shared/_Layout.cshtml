@@ -75,10 +75,16 @@
         <hr class="my-4">
         <p>© 2023 Created 2die4 · <a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </footer>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/bootstrap.bundle.js"></script>
     <script src="~/js/bootstrap.esm.js"></script>
+    <script src="~/js/modal.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
     @await RenderSectionAsync("pageScripts", required: false)
 
 </body>

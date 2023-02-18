@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Yoda.Domain.ViewModel.Account;
+using Yoda.Service.Implementation;
 using Yoda.Service.Interface;
 
 namespace Yoda.Controllers
@@ -68,6 +69,7 @@ namespace Yoda.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            model.UserLogin = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 var response = await accountService.ChangePassword(model);

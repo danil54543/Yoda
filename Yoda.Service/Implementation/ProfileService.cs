@@ -91,6 +91,7 @@ namespace Yoda.Service.Implementation
                 profile.FirstName = model.FirstName;
                 profile.LastName = model.LastName;
                 profile.BirdDate = model.BirdDate;
+                profile.Age = (byte)AgeHelper.GetAge(model.BirdDate);
                 //TODO: Update image.
 
                 await profileRepository.Update(profile);

@@ -4,7 +4,86 @@
     ViewBag.Title = "Profile";
     Layout = "_Layout";
 }
-<div class="container py-5">
+
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="profileFormId">
+                    <input asp-for="Id" hidden="hidden" />
+                    <h5 class="card-title">Profile data</h5>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">First name</label>
+                        <input type="text" class="form-control" asp-for="FirstName">
+                        <div class="form-text">The name must contain at least 2 characters, and no more than 50.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Surname</label>
+                        <input type="text" class="form-control" asp-for="LastName">
+                        <div class="form-text">The surname must contain at least 2 characters, and no more than 50.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Bird date</label>
+                        <input asp-for="BirdDate" type="date" class="form-control">
+                    </div>
+                    <div class="card-buttons-group">
+                        <button class='btn btn-success' id='saveProfileId'>Save</button>
+                        <div style="padding: 30px;"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="accountFormId">
+                    <h5 class="card-title">Account data</h5>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Email</label>
+                        <input type="text" class="form-control" asp-for="Login" disabled="disabled">
+                        <div class="form-text">Login length must be from 3 to 20 characters.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">New password</label>
+                        <input name="NewPassword" class="form-control textbox-dg font-weight-bold" type="password">
+                    </div>
+                    <div class="card-buttons-group">
+                        <button class='btn btn-success' id='saveAccountId'>Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("Index", "Home")">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("GetCars", "Car")">Автомобили</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="container py-5">
     <div class="row">
         <div class="col-md-12">
             <div class="row justify-content-center">
@@ -30,14 +109,16 @@
                                     <input asp-for="BirdDate" type="date" class="form-control" >
                                 </div>
                                 <div class="card-buttons-group">
-                                    <button class='btn btn-success'  id='saveProfileId'>Save</button>
+                                    <button class='btn btn-success' id='saveProfileId'>Save</button>
                                     <div style="padding: 30px;"></div>
                                 </div>
                             </form>
+
+
                             <form id="accountFormId">
                                 <h5 class="card-title">Account data</h5>
                                 <div class="mb-3">
-                                    <label class="form-label text-black-50">Login</label>
+                                    <label class="form-label text-black-50">Email</label>
                                     <input type="text" class="form-control" asp-for="Login" disabled="disabled">
                                     <div class="form-text">Login length must be from 3 to 20 characters.</div>
                                 </div>
@@ -55,7 +136,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 
@@ -64,7 +145,7 @@
 
 
 @section pageScripts
-    {
+{
     <script>
         $('#saveProfileId').on('click', function (e) {
             e.preventDefault();
@@ -95,9 +176,8 @@
         $('#saveAccountId').on('click', function (e) {
             e.preventDefault();
 
-            $('#UserName').removeAttr('disabled')
             const data = $('#accountFormId').serialize()
-            $('#UserName').attr('disabled', 'disabled')
+            $('#UserLogin').attr('disabled', 'disabled')
 
             $.ajax({
                 url: '@Url.Action("ChangePassword", "Account")',

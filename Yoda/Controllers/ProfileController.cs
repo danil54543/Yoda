@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Yoda.Domain.ViewModel.Profile;
 using Yoda.Service.Interface;
 
@@ -16,6 +17,8 @@ namespace Yoda.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProfileViewModel model)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("Login");
 
             if (ModelState.IsValid)
             {
