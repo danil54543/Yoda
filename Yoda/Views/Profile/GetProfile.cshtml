@@ -176,6 +176,7 @@
         $('#saveAccountId').on('click', function (e) {
             e.preventDefault();
 
+            $('#UserLogin').removeAttr('disabled')
             const data = $('#accountFormId').serialize()
             $('#UserLogin').attr('disabled', 'disabled')
 

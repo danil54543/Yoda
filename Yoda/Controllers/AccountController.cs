@@ -69,7 +69,7 @@ namespace Yoda.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            model.UserLogin = User.Identity.Name;
+          //Todo:
             if (ModelState.IsValid)
             {
                 var response = await accountService.ChangePassword(model);
