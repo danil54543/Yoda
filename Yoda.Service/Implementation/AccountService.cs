@@ -51,6 +51,7 @@ namespace Yoda.Service.Implementation
                 await userRepository.Create(user);
                 logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Register new user {user.Email}" +
                     $"\n-------------------------------------------------------------------------");
+               
                 var profile = new Profile()
                 {
                     FirstName = model.FirstName,
@@ -58,7 +59,7 @@ namespace Yoda.Service.Implementation
                     BirdDate = model.BirdDate,
                     Age = (byte)AgeHelper.GetAge(model.BirdDate),
                     User = user,
-                    UserId = user.Id,
+                    UserId = user.Id,                    
                 };
                 await profileRepository.Create(profile);
                 logger.LogInformation($"[AccountService.Register]: {DateTime.Now} Created new profile. {user.Email}" +

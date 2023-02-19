@@ -21,14 +21,23 @@ namespace Yoda.Controllers
             ModelState.Remove("Login");
 
             if (ModelState.IsValid)
-            {
-                var response = await profileService.Update(model);
+            {   
+                byte[] imageData;
+                using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+                }
+                var response = await profileService.Update(model, imageData);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
                 }
             }
             return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+        public IActionResult UpdateAvatar()
+        {
+            return View();
         }
 
         public async Task<IActionResult> GetProfile()

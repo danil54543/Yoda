@@ -1,9 +1,12 @@
-﻿@model RegisterViewModel
+﻿
+@model RegisterViewModel
 
 @{
     Layout = "_Layout";
     ViewBag.Title = "Registration";
 }
+
+
 
 
 <div class="container py-5">
@@ -14,58 +17,41 @@
                     <span class="anchor"></span>
                     <div class="card card-account card-outline-secondary border border-white">
                         <div class="card-body">
-                            <form class="row justify-content-center" asp-controller="Account" asp-action="Register" class="needs-validation" novalidate="">
-                                <div asp-validation-summary="All" style="font-size:23px; font-family:Arial" class="text-danger text-center"></div>
+                            <form class="row justify-content-center"  asp-controller="Account" asp-action="Register" class="needs-validation" novalidate="">
                                 <div class="row g-3 col-lg-4 col-sm-8">
                                     <h1 class="h2 mb-3 fw-normal text-center">Sign Up</h1>
                                     <hr class="my-4">
-                                    <div class="col-sm-6">
-                                        <label for="firstName" class="form-label">Name</label>
-                                        <input asp-for="FirstName" type="text" class="form-control" id="firstName" placeholder="Name" value="" required="">
-                                        <div class="invalid-feedback">
-                                            Required field.
-                                        </div>
+                                    <div class="col-sm-6 form-outline">
+                                        <label for="lastName" class="form-label">Name</label>
+                                        <input asp-for="FirstName" type="text" class="form-control" id="firstName"   maxlength="50"  required="">
                                     </div>
 
                                     <div class="col-sm-6">
                                         <label for="lastName" class="form-label">Surname</label>
-                                        <input asp-for="LastName" type="text" class="form-control" id="lastName" placeholder="Surname" value="" required="">
-                                        <div class="invalid-feedback">
-                                            Required field.
-                                        </div>
+                                        <input asp-for="LastName" type="text" class="form-control" id="lastName" maxlength="50" value="" required="">
                                     </div>
 
                                     <div class="col-12">
                                         <label for="email" class="form-label">Email<span class="text-warning">      (It will be your login)</span></label>
-                                        <input asp-for="Login" type="email" class="form-control" id="email" placeholder="you@example.com">
-                                        <div class="invalid-feedback">
-                                            Required field.
-                                        </div>
+                                        <input asp-for="Login" type="email" class="form-control" id="email" maxlength="50" placeholder="you@example.com">
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <label for="birdDate" class="form-label">Bird date</label>
-                                        <input asp-for="BirdDate" type="date" class="form-control" id="birddate" required="">
-                                        <div class="invalid-feedback">
-                                            Required field.
-                                        </div>
+                                        <input asp-for="BirdDate" type="date" class="form-control" id="birddate" placeholder=" " required="">
                                     </div>                    
 
                                     <div class="col-12">
                                         <label for="Password" class="form-label">Password</label>
-                                        <input autocomplete="new-password" asp-for="Password" type="password" class="form-control" id="password" placeholder="Password" value="" required="">
-                                        <div class="invalid-feedback">
-                                            The password must have at least 6 characters.
-                                        </div>
+                                        <input autocomplete="new-password" asp-for="Password" type="password"  class="form-control" id="password" value="" required="">
                                     </div>
 
                                     <div class="col-12">
                                         <label for="email" class="form-label">Confirm the password</label>
-                                        <input autocomplete="new-password" asp-for="PasswordConfirm" type="password" class="form-control" id="email" placeholder="Password" required="">
-                                        <div class="invalid-feedback">
-                                            Password mismatch.
-                                        </div>
+                                        <input autocomplete="new-password" asp-for="PasswordConfirm" type="password" class="form-control" id="email"  required="">
                                     </div>
+                                    <div asp-validation-summary="All" style="font-size:23px; font-family:Arial" class="text-danger text-center">                                </div>
+
 
                                     <div class="d-grid gap-2 d-md-block float-right">
                                         <button class="btn btn-success">Continue</button>
@@ -81,3 +67,5 @@
         </div>
     </div>
 </div>
+
+

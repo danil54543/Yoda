@@ -73,7 +73,7 @@ namespace Yoda.Service.Implementation
             }
         }
 
-        public async Task<BaseResponse<Profile>> Update(ProfileViewModel model)
+        public async Task<BaseResponse<Profile>> Update(ProfileViewModel model, byte[] imageData)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Yoda.Service.Implementation
                 profile.LastName = model.LastName;
                 profile.BirdDate = model.BirdDate;
                 profile.Age = (byte)AgeHelper.GetAge(model.BirdDate);
-                //TODO: Update image.
+                profile.Image = imageData;
 
                 await profileRepository.Update(profile);
                 logger.LogInformation($"[ProfileService.Save] Update data.");
