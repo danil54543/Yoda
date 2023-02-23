@@ -2,16 +2,20 @@
     ViewData["Title"] = "Home";
     Layout = "_Layout";
 }
-@if (!User.Identity.IsAuthenticated)
-{
-    <div class="text-center">
-        <h1 class="display-4 text-white">Welcome</h1>
-    </div>
 
-    <div style="padding: 400px;"></div>
-}
-@if (User.IsInRole("Admin"))
-{
-    <div>Admin</div>
-}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center ">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <h1 class=" text-light display-4 fw-normal">Yoda</h1>
+            <p class="text-light lead fw-normal">Yoda is a note-taking website that allows users to create, organize, and manage their notes in a simple and efficient way. The site offers a user-friendly interface that is easy to navigate, making it an ideal tool for students, professionals, and anyone who needs to keep track of information.</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-lg btn-warning  active text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
+        }
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
+
+
+
 

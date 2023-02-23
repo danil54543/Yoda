@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Yoda.Service.Implementation;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,31 +19,18 @@
 </head>
 
 <body class="backgroundImage">
-    <div class="text-bg-dark ">
+    <div class="text-bg-light">
         <div class="container">
-           
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 " asp-controller="Home" asp-action="Index">
-
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:white; font-family:Impact; font-size:30px;">Yoda</span></a>
-
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/yodadeploy.png" width="190" height="40" /></a>
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+
                     @if (!User.Identity.IsAuthenticated)
                     {
 
-                        <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white text-center">Home</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white text-center">About</a></li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white">Home</a></li>
-                        <li><a asp-controller="Todo" asp-action="Todos" class="nav-link px-2 text-white">Todos</a></li>
-                        <li> <a asp-controller="Profile" asp-action="GetProfile" class="nav-link px-2 text-white">Profile</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-                    }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li><a asp-controller="User" asp-action="GetUsers" class="nav-link px-2 text-white">Admin panel</a></li>
-                    }
+                        <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-black text-center">Home</a></li>
+                        <li><a asp-controller="Home" asp-action="About" class="nav-link px-2 text-black text-center">About</a></li>
+                    }                                      
                 </ul>
 
                 @if (!User.Identity.IsAuthenticated)
@@ -52,13 +41,26 @@
                     </div>
                 }
                 @if (User.Identity.IsAuthenticated)
-                {                 
-                    <div class="col-md-3 text-end">
-                        <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Log Out</a>
-                    </div>         
+                {
+                   
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                                          {
+                            <img src="~/image/avatar.jpg" width="32" height="32" alt="..." class="rounded-circle">                         
+                            <span class="text-black">Daniel Korolov</span>::after
+                        <ul class="dropdown-menu dropdown-menu-light text-small shadow">
+                            <li><a class="dropdown-item" asp-controller="Project" asp-action="Projects">Projects</a></li>
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="GetProfile">Profile</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                               <li><a asp-controller="User" asp-action="GetUsers" class="nav-link px-2 text-black">Admin panel</a></li>
+                            }
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Sign out</a></li>
+                        </ul>
+                    </a>
                 }
-                
-            </header>
+
+			</header>
         </div>
     </div>
 

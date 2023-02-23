@@ -1,17 +1,21 @@
-﻿@model List<TodoViewModel>
+﻿@model List<ProjectViewModel>
 @{
-    ViewBag.Title = "Todo";
+    ViewBag.Title = "Projects";
     Layout = "_Layout";
     
 }
 
 <div class="container py-5">
 
-    <div class="card col-md-12" style="margin: 10px;">
+    if(Model!=null|| Model.Count!=0)
+    {
+        <div class="card col-md-12" style="margin: 10px;">
          <div class="card-buttons-group">              
-                <button class='btn btn-success' id='addUserId'>New todo</button>     
+                <button class='btn btn-success' id='addUserId'>New Projects</button>     
          </div>
     </div>
+    }
+    
 
     @if (Model == null || Model.Count == 0)
     {
@@ -20,7 +24,7 @@
             <div class="row g-0">
                 <div class="col-md-12">
                     <div class="card-body">
-                        <h5 class="card-title text-center">No TODO yet :(</h5>
+                        <button class='btn btn-success' id='addUserId'>Create first project</button>     
                     </div>
                 </div>
             </div>
@@ -32,17 +36,17 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
-                @foreach(var todo in Model)
+                @foreach(var project in Model)
                 {
                    <div class="card-body">
-                         <h5 class="card-title">@todo.Title</h5>
-                         <p class="card-text">@todo.Item</p>
+                         <h5 class="card-title">@project.Title</h5>
+                         
                          <div class="d-flex justify-content-between align-items-center">
                              <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                              </div>
-                             <small class="text-muted">@todo.DateCreate</small>
+                             <small class="text-muted">@project.DateCreated</small>
                          </div>
                    </div>        
                 } 

@@ -15,7 +15,7 @@ namespace Yoda.DAL
             Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Todo> Todos { get; set; } = null!;
+        public DbSet<Project> Projects { get; set; } = null!;
         public DbSet<Profile> Profiles { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,12 +52,12 @@ namespace Yoda.DAL
                     .HasPrincipalKey<User>(x => x.Id)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                builder.HasMany(x => x.TodoItems)
+                builder.HasMany(x => x.Projects)
                     .WithOne(x => x.User)
                     .HasPrincipalKey(x => x.Id)
                     .OnDelete(DeleteBehavior.Cascade);
 
-
+                    
             });
             modelBuilder.Entity<Profile>(builder =>
             {

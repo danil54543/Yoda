@@ -7,14 +7,14 @@ namespace Yoda.DAL.Repository
 	/// <summary>
 	/// TodoItem repository.
 	/// </summary>
-	public class TodoRepository : ITodoRepository
-	{
+	public class ProjectRepository : IProjectRepository
+    {
 		/// <summary>
 		/// Database context instance.
 		/// </summary>
 		private readonly AppDbContext db;
 
-		public TodoRepository(AppDbContext dbContext)
+		public ProjectRepository(AppDbContext dbContext)
 		{
 			db = dbContext;
 		}
@@ -23,36 +23,36 @@ namespace Yoda.DAL.Repository
 		/// Adding todo to database.
 		/// </summary>
 		/// <param name="entity">User.</param>
-		public async Task Create(Todo entity)
+		public async Task Create(Project entity)
 		{
-			await db.Todos.AddAsync(entity);
+			await db.Projects.AddAsync(entity);
 			await db.SaveChangesAsync();
 		}
 		/// <summary>
 		/// Delete todo from database.
 		/// </summary>
 		/// <param name="entity">User.</param>
-		public async Task Delete(Todo entity)
+		public async Task Delete(Project entity)
 		{
-			db.Todos.Remove(entity);
+			db.Projects.Remove(entity);
 			await db.SaveChangesAsync();
 		}
 
 		/// <summary>
 		/// Get all todos from database.
 		/// </summary>
-		public IQueryable<Todo> GetAll()
+		public IQueryable<Project> GetAll()
 		{
-			return db.Todos;
+			return db.Projects;
 		}
 
 		/// <summary>
 		/// Updating todo in database.
 		/// </summary>
 		/// <param name="entity">User.</param>
-		public async Task<Todo> Update(Todo entity)
+		public async Task<Project> Update(Project entity)
 		{
-			db.Todos.Update(entity);
+			db.Projects.Update(entity);
 			await db.SaveChangesAsync();
 			return entity;
 		}

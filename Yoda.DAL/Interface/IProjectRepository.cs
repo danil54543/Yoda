@@ -7,10 +7,10 @@ using Yoda.Domain.Model;
 
 namespace Yoda.DAL.Interface
 {
-	/// <summary>
-	/// Todo repository.
-	/// </summary>
-	public interface ITodoRepository : IBaseRepository<Todo>
+    /// <summary>
+    /// Project repository.
+    /// </summary>
+    public interface IProjectRepository : IBaseRepository<Project>
 	{
 		
 	}

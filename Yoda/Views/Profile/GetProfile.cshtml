@@ -14,10 +14,10 @@
             
                 @if (Model.Image != null)
                 {
-                    <img src="data:image /jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())" alt="..." class="img-thumbnail rounded-circle">
+                    <img src="data:image /jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())" alt="..."  class="img-thumbnail rounded-circle">
                 }
                 else{
-                    <img src="~/image/avatar.jpg" alt="..." class="img-thumbnail rounded-circle">
+                    <img src="~/image/avatar.jpg" heidht="150" width="150" alt="..." class="img-thumbnail rounded-circle">
                 }
                 <div class="row">
                     <button class="btn btn-outline-secondary" id="editAvatarId">Edit</button>

@@ -24,7 +24,7 @@ namespace Yoda.Domain.Model
 		public DateTime TimeRegistration { get; set; }
 		public long ProfileId { get; set; }
 		public Profile Profile { get; set; }
-        public IEnumerable<Todo>? TodoItems { get; set; }
+        public IEnumerable<Project>? Projects { get; set; }
 
     }
 }

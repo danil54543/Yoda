@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Yoda.Domain.ViewModel.Todo;
+using Yoda.Domain.ViewModel.Project;
 using Yoda.Service.Interface;
 
 namespace Yoda.Controllers
 {
-    public class TodoController : Controller
+    public class ProjectController : Controller
     {
-        private readonly ITodoService todoService;
+        private readonly IProjectService todoService;
 
-        public TodoController(ITodoService todoService)
+        public ProjectController(IProjectService todoService)
         {
             this.todoService = todoService;
         }
@@ -21,14 +21,14 @@ namespace Yoda.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = new TodoViewModel()
+            var model = new ProjectViewModel()
             {
                 Login = login,
             };
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(TodoViewModel model)
+        public async Task<IActionResult> Create(ProjectViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Yoda.Controllers
             {
                 return PartialView();
             }
-            var response = await todoService.GetTodo(id);
+            var response = await todoService.GetProject(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);
@@ -66,7 +66,7 @@ namespace Yoda.Controllers
             return PartialView();
         }
         [HttpPost]
-        public async Task<IActionResult> Update(TodoViewModel model)
+        public async Task<IActionResult> Update(ProjectViewModel model)
         {
             ModelState.Remove("Id");
             if (ModelState.IsValid)
@@ -80,16 +80,17 @@ namespace Yoda.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
         [HttpGet]
-        public async Task<IActionResult> Todos()
+        public async Task<IActionResult> Projects()
         {
-            var response = await todoService.GetTodos(User.Identity.Name);
+            var response = await todoService.GetProjects(User.Identity.Name);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data.ToList());
             }
-            return RedirectToAction("Todos", "Todo");
+
+            return RedirectToAction("Error", "Shared");
         }
-        //TODO: Make method "GetTodo".
+        //TODO: Make method "GetProject".
         [HttpPost]
         public JsonResult GetTypes()
         {

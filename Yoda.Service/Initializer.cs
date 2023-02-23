@@ -12,12 +12,12 @@ namespace Yoda.Service
         public static void InitializeRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
         }
         public static void InitializeServices(this IServiceCollection services)
         {
-            services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProfileService, ProfileService>();
