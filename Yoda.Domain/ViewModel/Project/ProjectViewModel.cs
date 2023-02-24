@@ -13,6 +13,8 @@ namespace Yoda.Domain.ViewModel.Project
         [Required, DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
         public ProjectCategory Category { get; set; }
+        public byte[]? Image { get; set; }
+
         public string Login { get; set; }
     }
 }

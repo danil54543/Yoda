@@ -13,6 +13,8 @@ namespace Yoda.Domain.Model
         [Required, DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
         public ProjectCategory Category { get; set; }
+        public byte[]? Image { get; set; }
+
         public long UserId { get; set; }
         public User User { get; set; }
     }

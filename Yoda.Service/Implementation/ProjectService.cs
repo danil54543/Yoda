@@ -143,7 +143,7 @@ namespace Yoda.Service.Implementation
         {
             try
             {
-                var user = await userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == login);
+                var user = await userRepository.GetAll().Include(x=>x.Projects).FirstOrDefaultAsync(x=>x.Email==login);
                 if (user == null)
                 {
                     logger.LogError($"[ProjectService.GetProjects]: {DateTime.Now} error User not found." +
@@ -154,7 +154,7 @@ namespace Yoda.Service.Implementation
                         StatusCode = StatusCode.UserNotFound
                     };
                 }
-                var projects = await projectRepository.GetAll().Where(p => p.UserId == user.Id).ToListAsync();
+                var projects = user.Projects;
                 var response = from t in projects
                                select new ProjectViewModel()
                                {

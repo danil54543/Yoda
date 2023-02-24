@@ -88,7 +88,7 @@ namespace Yoda.Controllers
                 return View(response.Data.ToList());
             }
 
-            return RedirectToAction("Error", "Shared");
+            return RedirectToAction("Error", "Home");
         }
         //TODO: Make method "GetProject".
         [HttpPost]
