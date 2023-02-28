@@ -24,11 +24,11 @@ namespace Yoda.Service.Implementation
             this.logger = logger;
         }
 
-        public async Task<IBaseResponse<Project>> Create(ProjectViewModel model)
+        public async Task<IBaseResponse<Project>> Create(ProjectCreateViewModel model,string login)
         {
             try
             {
-                var user = await userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == model.Login);
+                var user = await userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == login);
                 if (user == null)
                 {
                     return new BaseResponse<Project>()
@@ -41,14 +41,9 @@ namespace Yoda.Service.Implementation
                 {
                     Title = model.Title,
                     DateCreated = model.DateCreated,
-                    Category = Enum.Parse<ProjectCategory>(model.Category),
+                    ConpanyType = Enum.Parse<ConpanyType>(model.ConpanyType),
                     City= model.City,
                     Country = model.Country,
-                    Email = model.Email,
-                    PhoneNum = model.PhoneNum,
-                    Logo = model.Logo,
-                    Street = model.Street,
-                    Build = model.Build,
                     UserId = user.Id,
                 };
                 await projectRepository.Create(project);
@@ -106,8 +101,8 @@ namespace Yoda.Service.Implementation
                 };
             }
         }
-        //TODO:
-        public async Task<IBaseResponse<Project>> Update(ProjectViewModel model)
+        //TODO: Update project service.
+        public async Task<IBaseResponse<Project>> Update(ProjectCreateViewModel model)
         {
             try
             {
@@ -120,15 +115,15 @@ namespace Yoda.Service.Implementation
                         StatusCode = StatusCode.ProjectNotFound
                     };
                 }
-                project.Title = model.Title;
-                project.Logo = model.Logo;
-                project.Street = model.Street;
-                project.Email = model.Email;
-                project.Build = model.Build;
-                project.City = model.City;
-                project.Country = model.Country;
-                project.PhoneNum = model.PhoneNum;
-                project.Category = Enum.Parse<ProjectCategory>(model.Category);
+                //project.Title = model.Title;
+                //project.Logo = model.Logo;
+                //project.Street = model.Street;
+                //project.Email = model.Email;
+                //project.Build = model.Build;
+                //project.City = model.City;
+                //project.Country = model.Country;
+                //project.PhoneNum = model.PhoneNum;
+                //project.ConpanyType = Enum.Parse<ProjectCategory>(model.ConpanyType);
 
                 await projectRepository.Update(project);
                 logger.LogInformation($"[ProjectService.Edit]: {DateTime.Now} User {project.User.Email} edit todo {project.Title}." +
@@ -152,7 +147,7 @@ namespace Yoda.Service.Implementation
         }
 
 
-        public async Task<BaseResponse<IEnumerable<ProjectViewModel>>> GetProjects(string login)
+        public async Task<BaseResponse<IEnumerable<ProjectInfoViewModel>>> GetProjects(string login)
         {
             try
             {
@@ -161,7 +156,7 @@ namespace Yoda.Service.Implementation
                 {
                     logger.LogError($"[ProjectService.GetProjects]: {DateTime.Now} error User not found." +
                    $"\n----------------------------------------------");
-                    return new BaseResponse<IEnumerable<ProjectViewModel>>()
+                    return new BaseResponse<IEnumerable<ProjectInfoViewModel>>()
                     {
                         Description = "User not found.",
                         StatusCode = StatusCode.UserNotFound
@@ -169,23 +164,18 @@ namespace Yoda.Service.Implementation
                 }
                 var projects = user.Projects;
                 var response = from t in projects
-                               select new ProjectViewModel()
+                               select new ProjectInfoViewModel()
                                {
                                    Id = t.Id,
                                    Title = t.Title,
                                    DateCreated = t.DateCreated,
-                                   Category =t.Category.GetDisplayName(),
+                                   ConpanyType = t.ConpanyType.GetDisplayName(),
                                    Country= t.Country,
                                    City = t.City,
-                                   Street = t.Street,
-                                   Build = t.Build,
-                                   Logo = t.Logo,
-                                   PhoneNum = t.PhoneNum,
-                                   Email = t.PhoneNum
                                };
                 logger.LogInformation($"[ProjectService.GetProjects]: {DateTime.Now} User {login} request projects." +
                     $"\n----------------------------------------------");
-                return new BaseResponse<IEnumerable<ProjectViewModel>>()
+                return new BaseResponse<IEnumerable<ProjectInfoViewModel>>()
                 {
                     Data = response,
                     StatusCode = StatusCode.OK,
@@ -195,38 +185,39 @@ namespace Yoda.Service.Implementation
             {
                 logger.LogError(ex, $"[ProjectService.GetProjects]: {DateTime.Now} error {ex.Message}" +
                     $"\n----------------------------------------------");
-                return new BaseResponse<IEnumerable<ProjectViewModel>>()
+                return new BaseResponse<IEnumerable<ProjectInfoViewModel>>()
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
-        public async Task<IBaseResponse<ProjectViewModel>> GetProject(long id)
+        public async Task<IBaseResponse<ProjectCreateViewModel>> GetProject(long id)
         {
             try
             {
                 var project = await projectRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (project == null)
                 {
-                    logger.LogError($"[ProjectService.GetProject]: {DateTime.Now} error Todo not found." +
+                    logger.LogError($"[ProjectService.GetProject]: {DateTime.Now} error Project not found." +
                    $"\n----------------------------------------------");
-                    return new BaseResponse<ProjectViewModel>()
+                    return new BaseResponse<ProjectCreateViewModel>()
                     {
                         Description = "Project not found.",
                         StatusCode = StatusCode.ProjectNotFound
                     };
                 }
 
-                var data = new ProjectViewModel()
+                var data = new ProjectCreateViewModel()   
                 {
                     Title = project.Title,
                     DateCreated = project.DateCreated,
-                    Category = project.Category.GetDisplayName()
+                    //TODO:
+                    //Category = project.Category.GetDisplayName()
                 };
                 logger.LogInformation($"[ProjectService.GetProject]: {DateTime.Now} User {project.UserId} request project." +
                     $"\n----------------------------------------------");
-                return new BaseResponse<ProjectViewModel>()
+                return new BaseResponse<ProjectCreateViewModel>()
                 {
                     StatusCode = StatusCode.OK,
                     Data = data,
@@ -236,34 +227,34 @@ namespace Yoda.Service.Implementation
             {
                 logger.LogError($"[ProjectService.GetProject]: {DateTime.Now} error Project internal server error." +
                    $"\n----------------------------------------------");
-                return new BaseResponse<ProjectViewModel>()
+                return new BaseResponse<ProjectCreateViewModel>()
                 {
                     Description = $"[GetProject] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
-        public BaseResponse<Dictionary<int, string>> GetCategories()
-        {
-            try
-            {
-                var types = ((ProjectCategory[])Enum.GetValues(typeof(ProjectCategory)))
-                    .ToDictionary(k => (int)k, t => t.GetDisplayName());
+        //public BaseResponse<Dictionary<int, string>> GetCategories()
+        //{
+        //    try
+        //    {
+        //        var types = ((ProjectCategory[])Enum.GetValues(typeof(ProjectCategory)))
+        //            .ToDictionary(k => (int)k, t => t.GetDisplayName());
 
-                return new BaseResponse<Dictionary<int, string>>()
-                {
-                    Data = types,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<Dictionary<int, string>>()
-                {
-                    Description = ex.Message,
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
+        //        return new BaseResponse<Dictionary<int, string>>()
+        //        {
+        //            Data = types,
+        //            StatusCode = StatusCode.OK
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BaseResponse<Dictionary<int, string>>()
+        //        {
+        //            Description = ex.Message,
+        //            StatusCode = StatusCode.InternalServerError
+        //        };
+        //    }
+        //}
     }
 }

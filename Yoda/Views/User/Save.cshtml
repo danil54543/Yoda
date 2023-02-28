@@ -12,7 +12,12 @@
         </div>
         <div class="form-group col-md-4">
             <label asp-for="@Model.Role" class="col-form-label text-black-50"></label>
-            <select asp-for="@Model.Role" class="form-control" id="userRoleId"></select>
+            <select asp-for="@Model.Role" class="form-control" id="userRoleId">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+                <option value="Moderator">Moderator</option>
+
+            </select>
         </div>
         <div class="form-group col-md-4">
             <label  class="col-form-label text-black-50">First name</label>

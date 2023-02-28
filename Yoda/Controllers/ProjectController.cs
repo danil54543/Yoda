@@ -15,41 +15,42 @@ namespace Yoda.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var login = User.Identity.Name;
-            //if (login == string.Empty)
-            //{
-            //    return RedirectToAction("Error", "Home");
-            //}
-
-            var model = new ProjectViewModel()
+            if (!User.Identity.IsAuthenticated)
             {
-                Login = login,
-                DateCreated = DateTime.Now,
-            };
-            return View(model);
+                return RedirectToAction("Register", "Account");
+            }           
+            return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectViewModel model)
+        public async Task<IActionResult> Create(ProjectCreateViewModel model)
         {
-
-            if(ModelState.IsValid)
+            if (!User.Identity.IsAuthenticated)
             {
-                var response = await projectService.Create(model);
+                return RedirectToAction("Register", "Account");
+            }
+            if (ModelState.IsValid)
+            {
+                var response = await projectService.Create(model,User.Identity.Name);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
                 }
-            }      
+            }
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
-        public async Task<IActionResult> Delete(long id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id)    
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Registration", "Account");
+            }
             var response = await projectService.Delete(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return RedirectToAction("Projects", "Project");
             }
-            return View("Error", $"{response.Description}");
+            return View("Error","Home");
         }
 
         [HttpGet]
@@ -68,7 +69,7 @@ namespace Yoda.Controllers
             return PartialView();
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ProjectViewModel model)
+        public async Task<IActionResult> Update(ProjectCreateViewModel model)
         {
             ModelState.Remove("Id");
             if (ModelState.IsValid)
@@ -84,7 +85,12 @@ namespace Yoda.Controllers
         [HttpGet]
         public async Task<IActionResult> Projects()
         {
-            var response = await projectService.GetProjects(User.Identity.Name);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            var login = User.Identity.Name;
+            var response = await projectService.GetProjects(login);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data.ToList());
@@ -92,11 +98,11 @@ namespace Yoda.Controllers
             return RedirectToAction("Error", "Home");
         }
         //TODO: Make method "GetProject".
-        [HttpPost]
-        public JsonResult GetCategories()
-        {
-            var types = projectService.GetCategories();
-            return Json(types.Data);
-        }
+        //[HttpPost]
+        //public JsonResult GetCategories()
+        //{
+        //    var types = projectService.GetCategories();
+        //    return Json(types.Data);
+        //}
     }
 }

@@ -12,17 +12,17 @@ namespace Yoda.Domain.Model
 
         [Required, DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
-        public ProjectCategory Category { get; set; }
+        public ProjectCategory? Category { get; set; }
+        public ConpanyType ConpanyType { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-        public string Street { get; set; }
-        //TODO: Build
-        public int Build { get; set; }
-        public string PhoneNum { get; set; }    
-        public string? Email { get; set; }
+        public string? Street { get; set; }
+        //TODO: Build byte
+        public int? Build { get; set; }
+        public string? PhoneNum { get; set; }    
         public byte[]? Logo { get; set; }
 
         public long UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }
