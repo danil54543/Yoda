@@ -1,1 +1,1 @@
-![Image alt](https://github.com/danil54543/Yoda/raw/master/wwwroot/YodaLogo.png)
+!(https://github.com/danil54543/Yoda/raw/master/wwwroot/YodaLogo.png)
