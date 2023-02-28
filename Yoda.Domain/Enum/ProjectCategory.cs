@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Yoda.Domain.Enum
 {
     public enum ProjectCategory
     {
-        Shop = 0,
-        BaberShop = 1,
-        Parking = 2
+        [Display (Name ="Shop")]    Shop = 0,
+        [Display(Name = "BaberShop")]   BaberShop = 1,
+        [Display(Name = "Parking")]    Parking = 2
     }
 }

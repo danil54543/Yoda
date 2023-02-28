@@ -6,6 +6,7 @@ using Yoda.Domain.Enum;
 using Yoda.Domain.Extension;
 using Yoda.Domain.Helper;
 using Yoda.Domain.Model;
+using Yoda.Domain.ViewModel.AdminAccount;
 using Yoda.Domain.ViewModel.User;
 using Yoda.Service.Interface;
 
@@ -24,7 +25,7 @@ namespace Yoda.Service.Implementation
 			this.profileRepository = profileRepository;
 		}
 
-		public async Task<IBaseResponse<User>> Create(UserViewModel model)
+		public async Task<IBaseResponse<User>> Create(UserViewModelAdmin model)
 		{
 			try
 			{
@@ -41,20 +42,22 @@ namespace Yoda.Service.Implementation
 				{
 					Email = model.Login,
 					Role = Enum.Parse<Role>(model.Role),
-					Password = HashPasswordHelper.HashPassowrd(model.Password),					
+					Password = HashPasswordHelper.HashPassowrd(model.Password),
 					IsVerified = true,
 					TimeRegistration = DateTime.Now,
 				};
-				var profile = new Profile()
+                await userRepository.Create(user);
+                logger.LogInformation($"[UserService.Create]: {DateTime.Now} New account {user.Email} created." +
+                    $"\n-------------------------------------------------------------------------");
+                var profile = new Profile()
 				{
-					FirstName = "null",
-					LastName = "null",
-					BirdDate = DateTime.Now,
+					FirstName = model.FirstName,
+					LastName = model.LastName,
+					BirdDate = model.BirdDate,
 					Age = (byte)AgeHelper.GetAge(DateTime.Now),
+					UserId = user.Id,
 				};
-				await userRepository.Create(user);
-				logger.LogInformation($"[UserService.Create]: {DateTime.Now} New account {user.Email} created." +
-					$"\n-------------------------------------------------------------------------");
+				
 				await profileRepository.Create(profile);
                 logger.LogInformation($"[UserService.Create]: {DateTime.Now} Create profile {user.Email}." +
                     $"\n-------------------------------------------------------------------------");

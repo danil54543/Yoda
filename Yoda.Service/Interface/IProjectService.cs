@@ -1,4 +1,5 @@
-﻿using Yoda.Domain.BaseResponse;
+﻿using NLog.Fluent;
+using Yoda.Domain.BaseResponse;
 using Yoda.Domain.Model;
 using Yoda.Domain.ViewModel.Project;
 
@@ -29,6 +30,6 @@ namespace Yoda.Service.Interface
         Task<BaseResponse<IEnumerable<ProjectViewModel>>> GetProjects(string login);
 
         Task<IBaseResponse<ProjectViewModel>> GetProject(long id);
-        BaseResponse<Dictionary<int, string>> GetTypes();
+        BaseResponse<Dictionary<int, string>> GetCategories();
     }
 }

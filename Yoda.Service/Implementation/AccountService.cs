@@ -70,7 +70,7 @@ namespace Yoda.Service.Implementation
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Data = result,
-                    Description = "Object added.",
+                    Description = "Objects created.",
                     StatusCode = StatusCode.OK
                 };
             }

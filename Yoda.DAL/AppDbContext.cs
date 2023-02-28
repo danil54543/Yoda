@@ -85,6 +85,28 @@ namespace Yoda.DAL
                     }
                 });
             });
+            modelBuilder.Entity<Project>(builder => 
+            {
+                builder.ToTable("Project").HasKey(x=>x.Id);
+
+                builder.HasData(new Project[]
+                {
+                    new Project()
+                    {
+                        Id = 1,
+                        Title = "Test",
+                        DateCreated = DateTime.Now,
+                        Category = ProjectCategory.BaberShop,
+                        Country = "Ukraine",
+                        City = "Kyiv",
+                        Street = "Soborny",
+                        Build = 12,
+                        PhoneNum = "+380990763546",
+                        Email = "danil54543@gmail.com",
+                        UserId = 1,
+                    }
+                });
+            });
         }
     }
 }

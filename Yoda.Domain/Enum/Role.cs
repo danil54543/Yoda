@@ -1,12 +1,14 @@
-﻿namespace Yoda.Domain.Enum
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Yoda.Domain.Enum
 {
 	/// <summary>
 	/// User role.
 	/// </summary>
 	public enum Role
 	{
-		Admin = 0,
-		Moderator = 1,
-		User = 2,
+		[Display(Name = "Admin")]	Admin = 0,
+		[Display(Name = "Moderator")]	Moderator = 1,
+        [Display(Name = "User")]	User = 2,
 	}
 }

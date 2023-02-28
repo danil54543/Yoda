@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Yoda.Domain.Extension;
+using Yoda.Domain.ViewModel.AdminAccount;
 using Yoda.Domain.ViewModel.User;
 using Yoda.Service.Interface;
 
@@ -21,7 +22,7 @@ namespace Yoda.Controllers
             {
                 return View(response.Data);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Error", "Home");
         }
 
         public async Task<IActionResult> DeleteUser(long id)
@@ -31,13 +32,13 @@ namespace Yoda.Controllers
             {
                 return RedirectToAction("GetUsers");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Error", "Home");
         }
 
         public IActionResult Save() => PartialView();
 
         [HttpPost]
-        public async Task<IActionResult> Save(UserViewModel model)
+        public async Task<IActionResult> Save(UserViewModelAdmin model)
         {
             if (ModelState.IsValid)
             {

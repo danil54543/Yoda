@@ -6,10 +6,10 @@
 }
 
 <div class="card col-md-12" style="margin: 10px;">
-    <div class="card-buttons-group">
+    <div class="card-buttons-group">    
         @if (User.IsInRole("Admin"))
         {
-            <button class='btn btn-success' id='addUserId'>Add</button>
+            <button class='btn btn-success text-end' id='addUserId'>Add</button>
         }
     </div>
 </div>
@@ -54,7 +54,7 @@
     {
     <script src="~/js/modal.js"></script>
     <script>
-        let modal = $('#modal');
+        let modal = $('#newUserModalId');
 
         $('#addUserId').on('click', function () {
             $.ajax({

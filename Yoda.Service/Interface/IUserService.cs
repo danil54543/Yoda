@@ -1,6 +1,7 @@
 ﻿using Yoda.Domain.BaseResponse;
 using Yoda.Domain.Model;
 using Yoda.Domain.ViewModel.Account;
+using Yoda.Domain.ViewModel.AdminAccount;
 using Yoda.Domain.ViewModel.User;
 
 namespace Yoda.Service.Interface
@@ -13,7 +14,7 @@ namespace Yoda.Service.Interface
 		/// <summary>
 		/// Creating new user.
 		/// </summary>
-		Task<IBaseResponse<User>> Create(UserViewModel model);
+		Task<IBaseResponse<User>> Create(UserViewModelAdmin model);
 		/// <summary>
 		/// Get dictionary roles.
 		/// </summary>

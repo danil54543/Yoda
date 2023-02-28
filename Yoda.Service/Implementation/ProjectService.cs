@@ -40,8 +40,15 @@ namespace Yoda.Service.Implementation
                 var project = new Project()
                 {
                     Title = model.Title,
-                    DateCreated = DateTime.Now,
-                    Category = model.Category,
+                    DateCreated = model.DateCreated,
+                    Category = Enum.Parse<ProjectCategory>(model.Category),
+                    City= model.City,
+                    Country = model.Country,
+                    Email = model.Email,
+                    PhoneNum = model.PhoneNum,
+                    Logo = model.Logo,
+                    Street = model.Street,
+                    Build = model.Build,
                     UserId = user.Id,
                 };
                 await projectRepository.Create(project);
@@ -80,8 +87,6 @@ namespace Yoda.Service.Implementation
                     };
                 }
                 await projectRepository.Delete(project);
-                logger.LogInformation($"[ProjectService.Delete]: {DateTime.Now} User {project.User.Email} deleted project {project.Title}." +
-                    $"\n---------------------------------------------------------------------------------------");
                 return new BaseResponse<bool>()
                 {
                     StatusCode = StatusCode.OK,
@@ -106,8 +111,8 @@ namespace Yoda.Service.Implementation
         {
             try
             {
-                var todo = await projectRepository.GetAll().FirstOrDefaultAsync(x => x.Id == model.Id);
-                if (todo == null)
+                var project = await projectRepository.GetAll().FirstOrDefaultAsync(x => x.Id == model.Id);
+                if (project == null)
                 {
                     return new BaseResponse<Project>()
                     {
@@ -115,14 +120,22 @@ namespace Yoda.Service.Implementation
                         StatusCode = StatusCode.ProjectNotFound
                     };
                 }
-                todo.Title = model.Title;
+                project.Title = model.Title;
+                project.Logo = model.Logo;
+                project.Street = model.Street;
+                project.Email = model.Email;
+                project.Build = model.Build;
+                project.City = model.City;
+                project.Country = model.Country;
+                project.PhoneNum = model.PhoneNum;
+                project.Category = Enum.Parse<ProjectCategory>(model.Category);
 
-                await projectRepository.Update(todo);
-                logger.LogInformation($"[ProjectService.Edit]: {DateTime.Now} User {todo.User.Email} edit todo {todo.Title}." +
+                await projectRepository.Update(project);
+                logger.LogInformation($"[ProjectService.Edit]: {DateTime.Now} User {project.User.Email} edit todo {project.Title}." +
                     $"\n----------------------------------------------------------------------------------");
                 return new BaseResponse<Project>()
                 {
-                    Data = todo,
+                    Data = project,
                     StatusCode = StatusCode.OK,
                 };
             }
@@ -161,7 +174,14 @@ namespace Yoda.Service.Implementation
                                    Id = t.Id,
                                    Title = t.Title,
                                    DateCreated = t.DateCreated,
-                                   Category = t.Category,
+                                   Category =t.Category.GetDisplayName(),
+                                   Country= t.Country,
+                                   City = t.City,
+                                   Street = t.Street,
+                                   Build = t.Build,
+                                   Logo = t.Logo,
+                                   PhoneNum = t.PhoneNum,
+                                   Email = t.PhoneNum
                                };
                 logger.LogInformation($"[ProjectService.GetProjects]: {DateTime.Now} User {login} request projects." +
                     $"\n----------------------------------------------");
@@ -202,7 +222,7 @@ namespace Yoda.Service.Implementation
                 {
                     Title = project.Title,
                     DateCreated = project.DateCreated,
-                    Category = project.Category
+                    Category = project.Category.GetDisplayName()
                 };
                 logger.LogInformation($"[ProjectService.GetProject]: {DateTime.Now} User {project.UserId} request project." +
                     $"\n----------------------------------------------");
@@ -223,7 +243,7 @@ namespace Yoda.Service.Implementation
                 };
             }
         }
-        public BaseResponse<Dictionary<int, string>> GetTypes()
+        public BaseResponse<Dictionary<int, string>> GetCategories()
         {
             try
             {
