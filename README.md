@@ -15,5 +15,5 @@ Overall, Yoda is a web application that streamlines customer accounting and fina
 
 **Client:** Html, Css, JavaScript
 
-**Server:** C#, Asp.NET Core, EntityFramework, MS Sql 
+**Server:** C#, Asp.NET Core, EntityFramework Core, MS Sql 
 
