@@ -41,11 +41,11 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                    
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                                                                           
-                            <img src="~/image/avatar.jpg" width="32" height="32" alt="..." class="rounded-circle">                         
+                            <img src="~/image/UserBaseAvatar.png" width="32" height="32" alt="..." class="rounded-circle">                         
                             <span class="text-black">Daniel Korolov</span>
-                        <ul class="dropdown-menu dropdown-menu-light text-small shadow">
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                             <li><a class="dropdown-item" asp-controller="Project" asp-action="Projects">Projects</a></li>
                             <li><a class="dropdown-item" asp-controller="Profile" asp-action="GetProfile">Profile</a></li>
                             @if (User.IsInRole("Admin"))
@@ -68,8 +68,10 @@
         </main>
     </div>
 
+
+
     <div class="modal fade" id="newProjectModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-centered">
             <div class="modal-content">
                <div class="modal-header">
                     <h5 class="modal-title">New project</h5>
@@ -85,7 +87,7 @@
 
 
     <div class="modal fade" id="newUserModalId" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">New user</h5>
@@ -98,9 +100,7 @@
             </div>
         </div>
     </div>
-   
 
-   
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -112,8 +112,5 @@
     @await RenderSectionAsync("pageScripts", required: false)
 
 </body>
-<footer class="container">
-    <hr class="my-4">
-    <p>© 2023 Created 2die4 · <a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
-</footer>
+
 </html>
