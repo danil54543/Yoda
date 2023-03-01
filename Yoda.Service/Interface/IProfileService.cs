@@ -8,6 +8,6 @@ namespace Yoda.Service.Interface
     {
         Task<BaseResponse<ProfileViewModel>> GetProfile(string login);
 
-        Task<BaseResponse<Profile>> Update(ProfileViewModel model, byte[] imageData);
+        Task<BaseResponse<Profile>> Update(ProfileViewModel model);
     }
 }

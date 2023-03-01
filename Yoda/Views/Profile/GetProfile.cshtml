@@ -20,7 +20,8 @@
                     <img src="~/image/avatar.jpg" heidht="150" width="150" alt="..." class="img-thumbnail rounded-circle">
                 }
                 <div class="row">
-                    <button class="btn btn-outline-secondary" id="editAvatarId">Edit</button>
+                    <input class="form-control form-control-lg" id="formFileLg" accept="image/*" type="file" />
+                    @*<button class="btn btn-outline-secondary" id="editAvatarId">Edit</button>*@
                 </div>
         </div>
         <div class="col">
@@ -32,7 +33,7 @@
                                     <span class="anchor"></span>
                                     <div class="card card-account card-outline-secondary border border-white">
                                         <div class="card-body">
-                                            <form id="profileFormId">
+                                            <form asp-action="Update"asp-controller="Profile" id="profileFormId">
                                                 <input asp-for="Id" hidden="hidden" />
                                                 <h5 class="card-title">Profile data</h5>
                                                 <div class="mb-3">
@@ -50,7 +51,7 @@
                                                     <input asp-for="BirdDate" type="date" class="form-control">
                                                 </div>
                                                 <div class="card-buttons-group">
-                                                    <button class='btn btn-success' id='saveProfileId'>Save</button>
+                                                    <button class='btn btn-success' asp-action="Update" asp-controller="Profile" >Save</button>
                                                     <div style="padding: 30px;"></div>
                                                 </div>
                                             </form>

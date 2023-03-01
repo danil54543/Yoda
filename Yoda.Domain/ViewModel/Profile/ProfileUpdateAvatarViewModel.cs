@@ -10,6 +10,6 @@ namespace Yoda.Domain.ViewModel.Profile
     public class ProfileUpdateAvatarViewModel
     {
         public string Login { get; set; }
-        public IFormFile img { get; set; }
+        public IFormFile Avatar { get; set; }
     }
 }

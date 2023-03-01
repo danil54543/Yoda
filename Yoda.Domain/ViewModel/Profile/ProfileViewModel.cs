@@ -19,9 +19,9 @@ namespace Yoda.Domain.ViewModel.Profile
         public DateTime BirdDate { get; set; }
         public byte? Age { get; set; }
         public IFormFile Avatar { get; set; }
+        public byte[]? Image { get; set; }
 
         //TODO: Хранение изображения
-        public byte[]? Image { get; set; }
         public string Login { get; set; }
     }
 }
